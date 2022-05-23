@@ -15,6 +15,9 @@
 ### ***Bryan***
 1. Started processing sketch.
 
+### ***Shapin***
+1. Started processing project. Plan the different coding aspects and break up the project
+
 # References and Resources Used
 https://cryptocellar.org/simula/
 https://www.ciphermachinesandcryptology.com/
