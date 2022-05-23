@@ -6,6 +6,7 @@
 ## 5/20
 ### ***Shapin***
 1. Researched the inner workings of rotary chipher machines (i.e Lorenz SZ, Enigma Machine, Hebern Rotor machine)
+2. Looked at diagrams for different rotary machines and made a quick draw of the idea
 
 ## 5/22
 ### ***Bryan***
@@ -17,6 +18,8 @@
 
 ### ***Shapin***
 1. Started processing project. Plan the different coding aspects and break up the project
+2. Downloaded processing
+3. Read documentation for Processing. Read a quick start.
 
 # References and Resources Used
 https://cryptocellar.org/simula/
