@@ -21,6 +21,33 @@
 2. Downloaded processing
 3. Read documentation for Processing. Read a quick start.
 
+## 5/24
+### ***Bryan***
+
+
+### ***Shapin***
+
+
+## 5/25
+### ***Bryan***
+
+
+### ***Shapin***
+
+
+## 5/26
+### ***Bryan***
+
+
+### ***Shapin***
+
+
+## 5/23
+### ***Bryan***
+
+
+### ***Shapin***
+
 # References and Resources Used
 https://cryptocellar.org/simula/
 https://www.ciphermachinesandcryptology.com/
