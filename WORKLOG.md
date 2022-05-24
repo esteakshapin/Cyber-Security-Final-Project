@@ -15,6 +15,7 @@
 ## 5/23
 ### ***Bryan***
 1. Started processing sketch.
+2. Added more to the planning and design.
 
 ### ***Shapin***
 1. Started processing project. Plan the different coding aspects and break up the project
