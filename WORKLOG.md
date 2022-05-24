@@ -53,3 +53,4 @@
 https://cryptocellar.org/simula/
 https://www.ciphermachinesandcryptology.com/
 https://www.101computing.net/enigma-machine-emulator/
+https://piotte13.github.io/enigma-cipher
