@@ -22,6 +22,8 @@ class Rotor{
   }
   
   void display(){
-    
+    for(int i=0; i<26; i++){
+      rect(x+i*50, y, 50, 50);
+    }
   }
 }
