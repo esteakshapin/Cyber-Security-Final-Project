@@ -1,6 +1,23 @@
 void setup(){
   size(1200,800);
+  //setup number of rotors and everything else
 }
+
+void draw(){
+  hi.display(); 
+}
+
+//read keyboard input
+void keyPressed(){
+  //check if key is letter
+  String input = key;
+}
+
+//example rotor
+int[] shift1 = {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+Rotor hi = new Rotor(0, 50, shift1);
+
+
 
 class Rotor{
   float x;
@@ -24,6 +41,8 @@ class Rotor{
   void display(){
     for(int i=0; i<26; i++){
       rect(x+i*50, y, 50, 50);
+      //don't know why it gives a null pointer exception
+      System.out.println(shifts[i]);
     }
   }
 }
