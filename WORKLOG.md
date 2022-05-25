@@ -24,7 +24,8 @@
 
 ## 5/24
 ### ***Bryan***
-
+1. Start the rotor and displaying.
+2. Check out another simulator and make design choices about the program.
 
 ### ***Shapin***
 
