@@ -17,4 +17,10 @@ class Rotor{
       System.out.print(wiring[i] + ",");
     }
   }
+  
+  //using char or int?
+  char substit(char input){
+    int num = input-64;
+    return (char) ((input+wiring[num]) % 26 + 65);
+  }
 }
