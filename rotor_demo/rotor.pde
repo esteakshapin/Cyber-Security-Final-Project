@@ -16,6 +16,7 @@ class Rotor{
     for(int i=0; i<26; i++){
       System.out.print(wiring[i] + ",");
     }
+    // substit('a');
   }
   
   void rotor_draw(){
@@ -58,9 +59,19 @@ class Rotor{
     draw_letters(x, y, box_size, wiring, index);
   }
   
-  //using char or int?
-  //char substit(char input){
-  //  int num = input-64;
-  //  return (char) ((input+wiring[num]) % 26 + 65);
-  //}
+  //what is this for??
+  // char substit(char input){
+  //   int num = input-65;
+  //   return (char) ((input+wiring[num]).charAt(0) % 26 + 65);
+  // }
+
+
+  //need to change - speed shud determine when rotors turn i.e 0,1,2 inputs after
+  // void turn(){
+  //   int last = wiring[wiring.length];
+  //   for(int i=0; i<wiring.length-1; i++){
+  //     wiring[(i+speed)%26] = wiring[i];
+  //   }
+  //   wiring[0] = last;
+  // }
 }
