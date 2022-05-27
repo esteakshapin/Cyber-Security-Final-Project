@@ -32,6 +32,7 @@
 
 ## 5/25
 ### ***Bryan***
+1. Keep working on the rotor.
 
 
 ### ***Shapin***
@@ -39,12 +40,12 @@
 
 ## 5/26
 ### ***Bryan***
-
+1. Work on presentation and rotor class.
 
 ### ***Shapin***
 
 
-## 5/23
+## 5/27
 ### ***Bryan***
 
 
