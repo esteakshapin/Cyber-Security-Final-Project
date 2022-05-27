@@ -17,7 +17,7 @@ void drawArrow(int cx, int cy, int len, float angle){
 }
 
 void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes){
-  println("drawing boxes");
+  // println("drawing boxes");
   pushMatrix();
   translate(cx, cy);
   rectMode(CORNER);
@@ -36,7 +36,7 @@ void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes){
 
 //draw highlighted boxes
 void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes, int index){
-  println("drawing highlighted box");
+  // println("drawing highlighted box");
   
   pushMatrix();
   translate(cx, cy);
@@ -64,7 +64,7 @@ void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes, int index){
 
 void draw_letters(int cx, int cy, int box_size, String[] wiring){
   
-  println("drawing letters");
+  // println("drawing letters");
   
   pushMatrix();
   translate(cx, cy);
@@ -86,7 +86,7 @@ void draw_letters(int cx, int cy, int box_size, String[] wiring){
 //with highlighted letter
 void draw_letters(int cx, int cy, int box_size, String[] wiring, int index){
   
-  println("drawing highlighted letters");
+  // println("drawing highlighted letters");
   
   pushMatrix();
   translate(cx, cy);

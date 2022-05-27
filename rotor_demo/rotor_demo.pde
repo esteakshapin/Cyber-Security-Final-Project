@@ -1,3 +1,4 @@
+import java.util.*;
 
 int min_padding;
 int padding;
@@ -10,7 +11,7 @@ Rotor[] rotors;
 boolean screen_update;
 
 void setup() {
-    size(1000, 300);
+    size(1000, 700);
     min_padding = 10;
     box_size = (width - (min_padding * 2)) / 26;
     
@@ -25,7 +26,7 @@ void setup() {
     
     textAlign(CENTER, CENTER);
     textSize(15);
-    println("box_size" + box_size);
+    // println("box_size" + box_size);
     
     //initializing rotor array
     rotors = new Rotor[3];
@@ -46,12 +47,13 @@ void setup() {
     
     numbers[25] = "3";
     
-    int r1_y = padding + box_size + padding * 2;
+    int r1_y = rotors[0].y + box_size + padding * 2 + box_size;
     
     Rotor r1 = new Rotor(padding, r1_y, 1, numbers);
     rotors[1] = r1;
     
-    Rotor r2 = new Rotor(padding, r1_y + box_size +padding * 2, 1, numbers);
+    Collections.reverse(Arrays.asList(numbers));
+    Rotor r2 = new Rotor(padding, rotors[1].y + box_size + padding * 2 + box_size, 2, numbers);
     rotors[2] = r2;
     
     
@@ -67,7 +69,6 @@ void draw() {
     
     for(Rotor x:rotors){
       if(x != null){
-        x.test();
         x.rotor_draw();
       }
     }
@@ -90,15 +91,46 @@ void draw() {
       //enciding letters
       input = r.encode(input, index) + "";
       
-      //drawing arrow
-      drawArrow(r.x + box_size * index + box_size / 2, r.y + box_size, padding * 2, 90);
+      println("+++++");
+      println(rotors[rotors.length - 1]);
+      println(r);
+      println(r == rotors[rotors.length - 1]);
+      if(r == rotors[rotors.length - 1]){
+        //drawing arrow to print box
+        int startingX = r.x + box_size * index + box_size / 2;
+        int startingY = r.y + box_size;
+        int targetX = width/2;
+        int targetY = height-box_size-padding;
+        
+        stroke(255, 0, 0);
+        line((float)startingX, (float) startingY, (float) targetX, (float) targetY);
+        stroke(0);
+
+      }else{
+        //drawing arrow
+        drawArrow(r.x + box_size * index + box_size / 2, r.y + box_size + padding, box_size, 90);
+        
+        //drawing box + letter of outcome
+        if(r.x + box_size * index + box_size > width/2){
+          fill(255);
+          draw_boxes(r.x + box_size * index - box_size, r.y + box_size + padding, box_size, 1);
+          fill(0);
+          draw_letters(r.x + box_size * index - box_size, r.y + box_size + padding, box_size, new String[]{input});
+        }else{
+          fill(255);
+          draw_boxes(r.x + box_size * index + box_size, r.y + box_size + padding, box_size, 1);
+          fill(0);
+          draw_letters(r.x + box_size * index + box_size, r.y + box_size + padding, box_size, new String[]{input});
+        }
+        
+      }
+      
     }
     
     //draw output in the output box
     fill(0,255,0);
     draw_letters(width/2-box_size/2, height-box_size-padding, box_size, new String[]{input});
-    println(input);
-    
+
     key_pressed = true;
     start_time = millis();
     
@@ -106,7 +138,11 @@ void draw() {
   
   if(key_pressed){
     if(pause(start_time, 1000)){
-      println("delayed 1000ms");
+      // println("delayed 1000ms");
+
+      for(Rotor x:rotors){
+        x.turn();
+      }
       key_pressed = false;
       screen_update = true;
     }

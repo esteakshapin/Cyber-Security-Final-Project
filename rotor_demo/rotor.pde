@@ -2,17 +2,19 @@ class Rotor{
   int x;
   int y;
   int speed;
+  int counter;
   String[] wiring;
   
   Rotor(int x, int y, int speed, String[] wiring){
     this.x=x;
     this.y=y;
     this.speed=speed;
-    this.wiring=wiring;
+    this.wiring=wiring.clone();
+    this.counter=0;
   }
   
   void test(){
-    System.out.println("x: "+ x+","+"y: " + y + "," + "speed: "+ speed);
+    System.out.println("x: "+ x+","+" y: " + y + "," + " speed: "+ speed);
     for(int i=0; i<26; i++){
       System.out.print(wiring[i] + ",");
     }
@@ -22,10 +24,10 @@ class Rotor{
   void rotor_draw(){
     //drawing background box
     fill(255);
-    draw_boxes(x, y, box_size, wiring.length);
+    draw_boxes(x, y, box_size, this.wiring.length);
     
     fill(0);
-    draw_letters(x, y, box_size, wiring);
+    draw_letters(x, y, box_size, this.wiring);
   }
   
   char encode(String input, int index){
@@ -53,10 +55,10 @@ class Rotor{
   void rotor_highlight(int index){
     //drawing background box
     fill(255);
-    draw_boxes(x, y, box_size, wiring.length, index);
+    draw_boxes(x, y, box_size,this. wiring.length, index);
     
     fill(0);
-    draw_letters(x, y, box_size, wiring, index);
+    draw_letters(x, y, box_size, this.wiring, index);
   }
   
   //what is this for??
@@ -67,11 +69,21 @@ class Rotor{
 
 
   //need to change - speed shud determine when rotors turn i.e 0,1,2 inputs after
-  // void turn(){
-  //   int last = wiring[wiring.length];
-  //   for(int i=0; i<wiring.length-1; i++){
-  //     wiring[(i+speed)%26] = wiring[i];
-  //   }
-  //   wiring[0] = last;
-  // }
+  void turn(){
+    this.counter++;
+    this.test();
+    println(" \n -----");
+    if(this.counter == speed){
+      println("shifting");
+      String first = wiring[0];
+          for(int i=0; i<this.wiring.length-1; i++){
+            wiring[i] = wiring[i+1];
+          }
+      this.wiring[this.wiring.length - 1] = first;
+      this.counter = 0;
+    }
+    if(this.counter > this.speed ) counter = 0;
+
+    println(String.format("speed: %s | counter: %s", speed, counter));
+  }
 }
