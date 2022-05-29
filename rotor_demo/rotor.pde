@@ -60,12 +60,6 @@ class Rotor{
     fill(0);
     draw_letters(x, y, box_size, this.wiring, index);
   }
-  
-  //what is this for??
-  // char substit(char input){
-  //   int num = input-65;
-  //   return (char) ((input+wiring[num]).charAt(0) % 26 + 65);
-  // }
 
 
   //need to change - speed shud determine when rotors turn i.e 0,1,2 inputs after
