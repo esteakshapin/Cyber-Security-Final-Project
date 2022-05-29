@@ -47,9 +47,34 @@
 
 ## 5/27
 ### ***Bryan***
+1. Try to understand and work on graphics code.
 
 
 ### ***Shapin***
+
+
+## 5/28
+### ***Bryan***
+1. Start making number of rotors variable and streamlining stuff.
+
+
+### ***Shapin***
+
+
+## 5/29
+### ***Bryan***
+
+
+### ***Shapin***
+
+
+## 5/30
+### ***Bryan***
+
+
+### ***Shapin***
+
+
 
 # References and Resources Used
 https://cryptocellar.org/simula/
