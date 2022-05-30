@@ -17,13 +17,14 @@ int numRotors;
 boolean screen_update;
 
 //screens from 0 to 2: education, encode, decode
-int screen;
+int mode;
 
 void setup() {
   size(1000, 700);
+  mode=1;
+  
   min_padding = 10;
   box_size = (width - (min_padding * 2)) / 26;
-
   //centering the array of boxes; finding the width of the array; 
   //subtracting from width and dividing by two to get the padding
   //required on either size
@@ -35,7 +36,6 @@ void setup() {
   textSize(15);
   
   numRotors=3;
-  
   rotors = new Rotor[numRotors];
   
   //initializing rotor arrays
@@ -46,18 +46,16 @@ void setup() {
   }
   Rotor inputRotor = new Rotor(padding, padding, 0, alphabets);
   rotors[0] = inputRotor;
-
   //rotor 1
   String[] numbers = new String[26];
   for (int i = 0; i < 26; i++) {
     numbers[i] = String.valueOf(i);
   }
   numbers[25] = "3";
-  
   //rotor 2
   String[] numRev = numbers.clone();
   Collections.reverse(Arrays.asList(numRev));
-
+  
   //array of wirings
   //preset wirings should be supplied already 
   String[][] wirings = {alphabets, numbers, numRev};
@@ -68,31 +66,37 @@ void setup() {
   for(int i=0; i<numRotors; i++){
     rotors[i] = new Rotor(padding, padding + gap * i, speeds[i], wirings[i]);
   }
-
   /* old assigning Rotors to array
   Rotor r1 = new Rotor(padding, padding + gap, 1, numbers);
   rotors[1] = r1;
   Rotor r2 = new Rotor(padding, padding + gap * 2, 2, numbers);
   rotors[2] = r2;
   */
-
   screen_update = true;
 }
 
 void draw() {
   //normal state
+  //only update boxes when needed (after input)
   if (screen_update) {
     //clearing screen
     background(200);
 
-    //draw rotors
-    for (Rotor x : rotors) {
-      if (x != null) x.rotor_draw();
+    if(mode==0){
+      //draw rotors
+      for (Rotor x : rotors) {
+        if (x != null) x.rotor_draw();
+      }
+      //draw output box
+      fill (255);
+      draw_boxes(width/2-box_size/2, height-box_size-padding, box_size, 1);
+    } else{
+      //draw input rotor only
+      rotors[0].rotor_draw();
+      //draw output box
+      fill (255);
+      draw_boxes(width/2-box_size/2, height-box_size-padding, box_size, 1);
     }
-    
-    //draw output box
-    fill (255);
-    draw_boxes(width/2-box_size/2, height-box_size-padding, box_size, 1);
 
     screen_update = false;
   }
@@ -104,42 +108,54 @@ void draw() {
     String input = Character.toString(key);
 
     for (Rotor r : rotors) {
-      //encoding letters
-      input = r.encode(input, index) + "";
+      if(mode==0){
+        //encoding letters
+        input = r.encode(input, index) + ""; 
+        r.rotor_highlight(index);
+      } else if(mode==1){
+        input = r.encode(input, index) + "";
+        rotors[0].rotor_highlight(index);
+      } else {
+        input = r.decode(input, index) + ""; 
+      }
 
       println("+++++");
       println(rotors[rotors.length - 1]);
       println(r);
-      println(r == rotors[rotors.length - 1]);
+      println(r == rotors[rotors.length - 1]);      
       
-      
-      if (r == rotors[rotors.length - 1]) {
-        //drawing arrow to print box
-        int startingX = r.x + box_size * index + box_size / 2;
-        int startingY = r.y + box_size;
-        int targetX = width/2;
-        int targetY = height-box_size-padding;
+      //draw arrows if in education mode
+      if(mode==0){
+        if (r == rotors[rotors.length - 1]) {
+          //drawing arrow to print box
+          int startingX = r.x + box_size * index + box_size / 2;
+          int startingY = r.y + box_size;
+          int targetX = width/2;
+          int targetY = height-box_size-padding;
 
-        stroke(255, 0, 0);
-        line((float)startingX, (float) startingY, (float) targetX, (float) targetY);
-        stroke(0);
-      } else {
-        //drawing arrow between rotors
-        drawArrow(r.x + box_size * index + box_size / 2, r.y + box_size + padding, box_size, 90);
-
-        //drawing box + letter of outcome
-        //box goes on left or right of arrow depending on which half the letter is on
-        if (r.x + box_size * index + box_size > width/2) {
-          fill(255);
-          draw_boxes(r.x + box_size * index - box_size, r.y + box_size + padding, box_size, 1);
-          fill(0);
-          draw_letters(r.x + box_size * index - box_size, r.y + box_size + padding, box_size, new String[]{input});
+          stroke(255, 0, 0);
+          line((float)startingX, (float) startingY, (float) targetX, (float) targetY);
+          stroke(0);
         } else {
-          fill(255);
-          draw_boxes(r.x + box_size * index + box_size, r.y + box_size + padding, box_size, 1);
-          fill(0);
-          draw_letters(r.x + box_size * index + box_size, r.y + box_size + padding, box_size, new String[]{input});
+          //drawing arrow between rotors
+          drawArrow(r.x + box_size * index + box_size / 2, r.y + box_size + padding, box_size, 90);
+
+          //drawing box + letter of outcome
+          //box goes on left or right of arrow depending on which half the letter is on
+          if (r.x + box_size * index + box_size > width/2) {
+            fill(255);
+            draw_boxes(r.x + box_size * index - box_size, r.y + box_size + padding, box_size, 1);
+            fill(0);
+            draw_letters(r.x + box_size * index - box_size, r.y + box_size + padding, box_size, new String[]{input});
+          } else {
+            fill(255);
+            draw_boxes(r.x + box_size * index + box_size, r.y + box_size + padding, box_size, 1);
+            fill(0);
+            draw_letters(r.x + box_size * index + box_size, r.y + box_size + padding, box_size, new String[]{input});
+          }
         }
+      } else if(mode==1){
+        
       }
     }
 

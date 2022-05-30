@@ -30,7 +30,6 @@ class Rotor{
   }
   
   char encode(String input, int index){
-    rotor_highlight(index);
     char output = input.toUpperCase().charAt(0);
     try {
       //if rotor has a number
@@ -40,7 +39,6 @@ class Rotor{
       temp = (temp - 65) % 26 + 65;
       
       output = char(temp);
-      
     }
     catch(Exception e) {
       // print out the exception. We expect a numberFormat exception when we input the input rotor
