@@ -50,7 +50,22 @@ class Rotor{
   }
   
   char decode(String input, int index){
-    char output = 'a';
+    char output = input.toUpperCase().charAt(0);
+    try {
+      //if rotor has a number
+      int temp = 26 + output - Integer.parseInt(this.wiring[index]);
+      
+      //make sure output is not greater than alphabets
+      temp = (temp - 65) % 26 + 65;
+      
+      output = char(temp);
+    }
+    catch(Exception e) {
+      // print out the exception. We expect a numberFormat exception when we input the input rotor
+      if(e instanceof NumberFormatException == false){
+        println("error "+ e);
+      }
+    }
     return output;
   }
   

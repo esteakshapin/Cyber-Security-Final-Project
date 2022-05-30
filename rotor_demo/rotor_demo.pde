@@ -108,6 +108,7 @@ void draw() {
     String input = Character.toString(key);
 
     for (Rotor r : rotors) {
+      //encode or decode
       if(mode==0){
         //encoding letters
         input = r.encode(input, index) + ""; 
@@ -124,7 +125,7 @@ void draw() {
       println(r);
       println(r == rotors[rotors.length - 1]);      
       
-      //draw arrows if in education mode
+      //only draw arrows in education mode
       if(mode==0){
         if (r == rotors[rotors.length - 1]) {
           //drawing arrow to print box
@@ -154,8 +155,6 @@ void draw() {
             draw_letters(r.x + box_size * index + box_size, r.y + box_size + padding, box_size, new String[]{input});
           }
         }
-      } else if(mode==1){
-        
       }
     }
 
