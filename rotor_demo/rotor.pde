@@ -51,6 +51,12 @@ class Rotor{
     return output;
   }
   
+  char decode(String input, int index){
+    char output = 'a';
+    return output;
+  }
+  
+  //draw rotor with highlighted letter
   void rotor_highlight(int index){
     //drawing background box
     fill(255);

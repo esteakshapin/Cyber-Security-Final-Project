@@ -69,7 +69,7 @@ void setup() {
     rotors[i] = new Rotor(padding, padding + gap * i, speeds[i], wirings[i]);
   }
 
-  /*
+  /* old assigning Rotors to array
   Rotor r1 = new Rotor(padding, padding + gap, 1, numbers);
   rotors[1] = r1;
   Rotor r2 = new Rotor(padding, padding + gap * 2, 2, numbers);
@@ -80,15 +80,17 @@ void setup() {
 }
 
 void draw() {
+  //normal state
   if (screen_update) {
     //clearing screen
     background(200);
 
+    //draw rotors
     for (Rotor x : rotors) {
       if (x != null) x.rotor_draw();
     }
     
-    //draw output letter
+    //draw output box
     fill (255);
     draw_boxes(width/2-box_size/2, height-box_size-padding, box_size, 1);
 
@@ -110,6 +112,7 @@ void draw() {
       println(r);
       println(r == rotors[rotors.length - 1]);
       
+      
       if (r == rotors[rotors.length - 1]) {
         //drawing arrow to print box
         int startingX = r.x + box_size * index + box_size / 2;
@@ -121,7 +124,7 @@ void draw() {
         line((float)startingX, (float) startingY, (float) targetX, (float) targetY);
         stroke(0);
       } else {
-        //drawing arrow
+        //drawing arrow between rotors
         drawArrow(r.x + box_size * index + box_size / 2, r.y + box_size + padding, box_size, 90);
 
         //drawing box + letter of outcome
