@@ -13,7 +13,6 @@ void drawArrow(int cx, int cy, int len, float angle){
   line(len, 0, len - 8, -8);
   line(len, 0, len - 8, 8);
   popMatrix();
-
 }
 
 void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes){
@@ -27,11 +26,9 @@ void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes){
     int y = 0;
     
     rect(x, y,box_size, box_size);
-    
   }
   
   popMatrix();
-  
 }
 
 //draw highlighted boxes

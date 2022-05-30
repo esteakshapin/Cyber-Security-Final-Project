@@ -18,7 +18,6 @@ class Rotor{
     for(int i=0; i<26; i++){
       System.out.print(wiring[i] + ",");
     }
-    // substit('a');
   }
   
   void rotor_draw(){

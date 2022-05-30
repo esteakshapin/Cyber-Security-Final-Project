@@ -66,27 +66,23 @@ void setup() {
     rotors[i] = new Rotor(padding, padding + gap * i, speeds[i], wirings[i]);
   }
 
-  
+  /*
   Rotor r1 = new Rotor(padding, padding + gap, 1, numbers);
   rotors[1] = r1;
-
   Rotor r2 = new Rotor(padding, padding + gap * 2, 2, numbers);
   rotors[2] = r2;
-  
+  */
 
   screen_update = true;
 }
 
 void draw() {
-
   if (screen_update) {
     //clearing screen
     background(200);
 
     for (Rotor x : rotors) {
-      if (x != null) {
-        x.rotor_draw();
-      }
+      if (x != null) x.rotor_draw();
     }
 
     fill (255);
@@ -97,14 +93,12 @@ void draw() {
 
   //only accept another input after the first one is finished
   if (!key_pressed && keyPressed && ((key >= 65 && key < 65 + 26) || (key >= 97 && key < 97 + 26))) {
-
-
     //capitalizing inputs
     int index = Character.toString(key).toUpperCase().charAt(0) - 65;
     String input = Character.toString(key);
 
     for (Rotor r : rotors) {
-      //enciding letters
+      //encoding letters
       input = r.encode(input, index) + "";
 
       println("+++++");
