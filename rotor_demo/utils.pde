@@ -1,3 +1,4 @@
+//pause, drawArrow, draw_boxes, and draw_letters
 boolean pause(int start_time, int pause_duration){
   if (start_time + pause_duration < millis()){
   return true;
@@ -26,21 +27,17 @@ void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes){
     int y = 0;
     
     rect(x, y,box_size, box_size);
-  }
-  
+  }  
   popMatrix();
 }
 
 //draw highlighted boxes
 void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes, int index){
   // println("drawing highlighted box");
-  
   pushMatrix();
   translate(cx, cy);
   rectMode(CORNER);
-  
-  
-  
+   
   for(int i = 0; i < numberOfBoxes; i++){
     int x = i * box_size;
     int y = 0;
@@ -50,19 +47,13 @@ void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes, int index){
     }else{
       fill(255);
     }
-    
-    rect(x, y,box_size, box_size);
-    
+    rect(x, y,box_size, box_size); 
   }
-  
   popMatrix();
-  
 }
 
 void draw_letters(int cx, int cy, int box_size, String[] wiring){
-  
   // println("drawing letters");
-  
   pushMatrix();
   translate(cx, cy);
   rectMode(CORNER);
@@ -70,21 +61,15 @@ void draw_letters(int cx, int cy, int box_size, String[] wiring){
   for(int i = 0; i < wiring.length; i++){
     int x = i * box_size;
     int y = 0;
-    
     // Draw the letter to the screen
     text(wiring[i], x + box_size / 2, y + box_size / 2);
-    
   }
-  
   popMatrix();
-
 }
 
 //with highlighted letter
 void draw_letters(int cx, int cy, int box_size, String[] wiring, int index){
-  
   // println("drawing highlighted letters");
-  
   pushMatrix();
   translate(cx, cy);
   rectMode(CORNER);
@@ -100,12 +85,8 @@ void draw_letters(int cx, int cy, int box_size, String[] wiring, int index){
       stroke(0);
       fill(0);
     }
-    
     // Draw the letter to the screen
-    text(wiring[i], x + box_size / 2, y + box_size / 2);
-    
+    text(wiring[i], x + box_size / 2, y + box_size / 2); 
   }
-  
   popMatrix();
-
 }

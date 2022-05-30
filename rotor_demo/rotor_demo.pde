@@ -16,6 +16,9 @@ int numRotors;
 //redraw screen
 boolean screen_update;
 
+//screens from 0 to 2: education, encode, decode
+int screen;
+
 void setup() {
   size(1000, 700);
   min_padding = 10;
@@ -84,7 +87,8 @@ void draw() {
     for (Rotor x : rotors) {
       if (x != null) x.rotor_draw();
     }
-
+    
+    //draw output letter
     fill (255);
     draw_boxes(width/2-box_size/2, height-box_size-padding, box_size, 1);
 
@@ -105,6 +109,7 @@ void draw() {
       println(rotors[rotors.length - 1]);
       println(r);
       println(r == rotors[rotors.length - 1]);
+      
       if (r == rotors[rotors.length - 1]) {
         //drawing arrow to print box
         int startingX = r.x + box_size * index + box_size / 2;
@@ -120,6 +125,7 @@ void draw() {
         drawArrow(r.x + box_size * index + box_size / 2, r.y + box_size + padding, box_size, 90);
 
         //drawing box + letter of outcome
+        //box goes on left or right of arrow depending on which half the letter is on
         if (r.x + box_size * index + box_size > width/2) {
           fill(255);
           draw_boxes(r.x + box_size * index - box_size, r.y + box_size + padding, box_size, 1);
