@@ -16,12 +16,17 @@ int numRotors;
 //redraw screen
 boolean screen_update;
 
-//screens from 0 to 2: education, encode, decode
-int mode;
+//encrypt or decrypt (T/F)
+boolean mode;
+
+//show process
+boolean process;
+
 
 void setup() {
   size(1000, 700);
-  mode=1;
+  mode=true;
+  process=true;
   
   min_padding = 10;
   box_size = (width - (min_padding * 2)) / 26;
@@ -76,13 +81,12 @@ void setup() {
 }
 
 void draw() {
-  //normal state
   //only update boxes when needed (after input)
   if (screen_update) {
     //clearing screen
     background(200);
 
-    if(mode==0){
+    if(process){
       //draw rotors
       for (Rotor x : rotors) {
         if (x != null) x.rotor_draw();
@@ -109,15 +113,16 @@ void draw() {
 
     for (Rotor r : rotors) {
       //encode or decode
-      if(mode==0){
-        //encoding letters
+      if(mode){
         input = r.encode(input, index) + ""; 
-        r.rotor_highlight(index);
-      } else if(mode==1){
-        input = r.encode(input, index) + "";
-        rotors[0].rotor_highlight(index);
-      } else {
+      } else{
         input = r.decode(input, index) + ""; 
+      }
+      //show process or not
+      if(process){
+        r.rotor_highlight(index);
+      } else {
+        rotors[0].rotor_highlight(index);
       }
 
       println("+++++");
@@ -126,7 +131,7 @@ void draw() {
       println(r == rotors[rotors.length - 1]);      
       
       //only draw arrows in education mode
-      if(mode==0){
+      if(process){
         if (r == rotors[rotors.length - 1]) {
           //drawing arrow to print box
           int startingX = r.x + box_size * index + box_size / 2;
