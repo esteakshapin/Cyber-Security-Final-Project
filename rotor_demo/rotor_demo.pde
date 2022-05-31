@@ -12,6 +12,7 @@ int start_time;
 
 Rotor[] rotors;
 int numRotors;
+int maxRotors;
 
 //redraw screen
 boolean screen_update;
@@ -29,10 +30,10 @@ void setup() {
   size(1000, 700);
   mode=false;
   process=true;
-  
+
   min_padding = 10;
   box_size = (width - (min_padding * 2)) / 26;
-  //centering the array of boxes; finding the width of the array; 
+  //centering the array of boxes; finding the width of the array;
   //subtracting from width and dividing by two to get the padding
   //required on either size
   width_of_array = box_size * 26;
@@ -41,10 +42,11 @@ void setup() {
 
   textAlign(CENTER, CENTER);
   textSize(15);
-  
+
   numRotors=3;
+  maxRotors=5;
   rotors = new Rotor[numRotors];
-  
+
   //initializing rotor arrays
   //input array
   String[] alphabets = new String[26];
@@ -62,18 +64,18 @@ void setup() {
   //rotor 2
   String[] numRev = numbers.clone();
   Collections.reverse(Arrays.asList(numRev));
-  
+
   //array of wirings
-  //preset wirings should be supplied already 
+  //preset wirings should be supplied already
   String[][] wirings = {alphabets, numbers, numRev};
   int[] speeds = {0,1,2};
-  
-  //automatically setup rotors 
+
+  //automatically setup rotors
   //y position is padding + gap * i
   for(int i=0; i<numRotors; i++){
     rotors[i] = new Rotor(padding, padding + gap * i, speeds[i], wirings[i]);
   }
-  
+
   screen_update = true;
 }
 
@@ -106,13 +108,14 @@ void draw() {
     //capitalizing inputs
     int index = Character.toString(key).toUpperCase().charAt(0) - 65;
     String input = Character.toString(key);
+    String output = input;
 
     for (Rotor r : rotors) {
       //encode or decode
       if(mode){
-        input = r.encode(input, index) + ""; 
+        output = r.encode(output, index) + "";
       } else{
-        input = r.decode(input, index) + ""; 
+        output = r.decode(output, index) + "";
       }
       //show process or not
       if(process){
@@ -124,8 +127,8 @@ void draw() {
       println("+++++");
       println(rotors[rotors.length - 1]);
       println(r);
-      println(r == rotors[rotors.length - 1]);      
-      
+      println(r == rotors[rotors.length - 1]);
+
       //only draw arrows if needed
       if(process){
         if (r == rotors[rotors.length - 1]) {
@@ -148,20 +151,22 @@ void draw() {
             fill(255);
             draw_boxes(r.x + box_size * index - box_size, r.y + box_size + padding, box_size, 1);
             fill(0);
-            draw_letters(r.x + box_size * index - box_size, r.y + box_size + padding, box_size, new String[]{input});
+            draw_letters(r.x + box_size * index - box_size, r.y + box_size + padding, box_size, new String[]{output});
           } else {
             fill(255);
             draw_boxes(r.x + box_size * index + box_size, r.y + box_size + padding, box_size, 1);
             fill(0);
-            draw_letters(r.x + box_size * index + box_size, r.y + box_size + padding, box_size, new String[]{input});
+            draw_letters(r.x + box_size * index + box_size, r.y + box_size + padding, box_size, new String[]{output});
           }
         }
       }
     }
 
     //draw output in the output box
-    fill(0, 255, 0);
-    draw_letters(width/2-box_size/2, height-box_size-padding, box_size, new String[]{input});
+    if(process){
+      fill(0, 255, 0);
+      draw_letters(width/2-box_size/2, height-box_size-padding, box_size, new String[]{output});
+    }
 
     key_pressed = true;
     start_time = millis();

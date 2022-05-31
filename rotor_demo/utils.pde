@@ -90,3 +90,24 @@ void draw_letters(int cx, int cy, int box_size, String[] wiring, int index){
   }
   popMatrix();
 }
+
+void draw_text(String input, String output){
+  //format strings
+  int charsWidth = 4;
+  int index = 0;
+  
+  List<String> inFormat = new ArrayList<String>();
+  while(index<input.length()){
+   inFormat.add(input.substring(index, Math.min(index + charsWidth, input.length())));
+   index += charsWidth;
+  }
+  
+  index = 0;
+  List<String> outFormat = new ArrayList<String>();
+  while(index<output.length()){
+   outFormat.add(output.substring(index, Math.min(index + charsWidth, output.length())));
+   index += charsWidth;
+  } 
+  
+  //draw text
+}

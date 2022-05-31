@@ -63,14 +63,15 @@
 
 ## 5/29
 ### ***Bryan***
-
+1. Work on generalizing rotor creation process.
 
 ### ***Shapin***
 
 
 ## 5/30
 ### ***Bryan***
-
+1. Make decode
+2. Make show text mode
 
 ### ***Shapin***
 
@@ -81,3 +82,4 @@ https://cryptocellar.org/simula/
 https://www.ciphermachinesandcryptology.com/
 https://www.101computing.net/enigma-machine-emulator/
 https://piotte13.github.io/enigma-cipher
+https://ciphermachines.com/electricrotor.html
