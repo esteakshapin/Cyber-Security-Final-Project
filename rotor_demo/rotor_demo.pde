@@ -17,15 +17,17 @@ int numRotors;
 boolean screen_update;
 
 //encrypt or decrypt (T/F)
-boolean mode;
-
 //show process
+boolean mode;
 boolean process;
 
+//input and output logs
+String inputText;
+String outputText;
 
 void setup() {
   size(1000, 700);
-  mode=true;
+  mode=false;
   process=true;
   
   min_padding = 10;
@@ -35,7 +37,7 @@ void setup() {
   //required on either size
   width_of_array = box_size * 26;
   padding = (width - width_of_array) / 2;
-  gap = box_size*2 + padding*2;
+  gap = (box_size + padding)*2;
 
   textAlign(CENTER, CENTER);
   textSize(15);
@@ -66,19 +68,16 @@ void setup() {
   String[][] wirings = {alphabets, numbers, numRev};
   int[] speeds = {0,1,2};
   
-  //automatically setup rotors (doesn't work yet)
+  //automatically setup rotors 
   //y position is padding + gap * i
   for(int i=0; i<numRotors; i++){
     rotors[i] = new Rotor(padding, padding + gap * i, speeds[i], wirings[i]);
   }
-  /* old assigning Rotors to array
-  Rotor r1 = new Rotor(padding, padding + gap, 1, numbers);
-  rotors[1] = r1;
-  Rotor r2 = new Rotor(padding, padding + gap * 2, 2, numbers);
-  rotors[2] = r2;
-  */
+  
   screen_update = true;
 }
+
+
 
 void draw() {
   //only update boxes when needed (after input)
@@ -97,9 +96,8 @@ void draw() {
     } else{
       //draw input rotor only
       rotors[0].rotor_draw();
-      //draw output box
-      fill (255);
-      draw_boxes(width/2-box_size/2, height-box_size-padding, box_size, 1);
+      //input and output text boxes
+      
     }
 
     screen_update = false;
@@ -130,7 +128,7 @@ void draw() {
       println(r);
       println(r == rotors[rotors.length - 1]);      
       
-      //only draw arrows in education mode
+      //only draw arrows if needed
       if(process){
         if (r == rotors[rotors.length - 1]) {
           //drawing arrow to print box
