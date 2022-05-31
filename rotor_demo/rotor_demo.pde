@@ -46,7 +46,7 @@ void setup() {
   rotors = new Rotor[numRotors];
   
   //initializing rotor arrays
-  //setting up input array
+  //input array
   String[] alphabets = new String[26];
   for (int i = 0; i < 26; i++) {
     alphabets[i] = String.valueOf(char(i + 65));
@@ -78,7 +78,6 @@ void setup() {
 }
 
 
-
 void draw() {
   //only update boxes when needed (after input)
   if (screen_update) {
@@ -97,7 +96,6 @@ void draw() {
       //draw input rotor only
       rotors[0].rotor_draw();
       //input and output text boxes
-      
     }
 
     screen_update = false;

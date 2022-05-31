@@ -29,6 +29,16 @@ class Rotor{
     draw_letters(x, y, box_size, this.wiring);
   }
   
+  //draw rotor with highlighted letter
+  void rotor_highlight(int index){
+    //drawing background box
+    fill(255);
+    draw_boxes(x, y, box_size,this. wiring.length, index);
+    
+    fill(0);
+    draw_letters(x, y, box_size, this.wiring, index);
+  }
+  
   char encode(String input, int index){
     char output = input.toUpperCase().charAt(0);
     try {
@@ -68,17 +78,6 @@ class Rotor{
     }
     return output;
   }
-  
-  //draw rotor with highlighted letter
-  void rotor_highlight(int index){
-    //drawing background box
-    fill(255);
-    draw_boxes(x, y, box_size,this. wiring.length, index);
-    
-    fill(0);
-    draw_letters(x, y, box_size, this.wiring, index);
-  }
-
 
   //need to change - speed shud determine when rotors turn i.e 0,1,2 inputs after
   void turn(){
