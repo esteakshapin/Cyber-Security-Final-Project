@@ -21,13 +21,13 @@ void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes){
   pushMatrix();
   translate(cx, cy);
   rectMode(CORNER);
-  
+
   for(int i = 0; i < numberOfBoxes; i++){
     int x = i * box_size;
     int y = 0;
-    
+
     rect(x, y,box_size, box_size);
-  }  
+  }
   popMatrix();
 }
 
@@ -37,17 +37,17 @@ void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes, int index){
   pushMatrix();
   translate(cx, cy);
   rectMode(CORNER);
-   
+
   for(int i = 0; i < numberOfBoxes; i++){
     int x = i * box_size;
     int y = 0;
-    
+
     if(i == index){
       fill(0);
     }else{
       fill(255);
     }
-    rect(x, y,box_size, box_size); 
+    rect(x, y,box_size, box_size);
   }
   popMatrix();
 }
@@ -57,7 +57,7 @@ void draw_letters(int cx, int cy, int box_size, String[] wiring){
   pushMatrix();
   translate(cx, cy);
   rectMode(CORNER);
-  
+
   for(int i = 0; i < wiring.length; i++){
     int x = i * box_size;
     int y = 0;
@@ -73,11 +73,11 @@ void draw_letters(int cx, int cy, int box_size, String[] wiring, int index){
   pushMatrix();
   translate(cx, cy);
   rectMode(CORNER);
-  
+
   for(int i = 0; i < wiring.length; i++){
     int x = i * box_size;
     int y = 0;
-    
+
     if(i == index){
       stroke(255);
       fill(255);
@@ -86,28 +86,34 @@ void draw_letters(int cx, int cy, int box_size, String[] wiring, int index){
       fill(0);
     }
     // Draw the letter to the screen
-    text(wiring[i], x + box_size / 2, y + box_size / 2); 
+    text(wiring[i], x + box_size / 2, y + box_size / 2);
   }
   popMatrix();
 }
 
 void draw_text(String input, String output){
+  pushMatrix();
   //format strings
   int charsWidth = 4;
   int index = 0;
-  
+
   List<String> inFormat = new ArrayList<String>();
-  while(index<input.length()){
+  while(index < input.length()){
    inFormat.add(input.substring(index, Math.min(index + charsWidth, input.length())));
    index += charsWidth;
   }
-  
+
   index = 0;
   List<String> outFormat = new ArrayList<String>();
-  while(index<output.length()){
+  while(index < output.length()){
    outFormat.add(output.substring(index, Math.min(index + charsWidth, output.length())));
    index += charsWidth;
-  } 
-  
-  //draw text
+  }
+
+  //draw text doesnt work yet
+  for(int i=0; i<inFormat.size(); i++){
+    text(inFormat.get(i), 0, i * 10);
+  }
+
+  popMatrix();
 }

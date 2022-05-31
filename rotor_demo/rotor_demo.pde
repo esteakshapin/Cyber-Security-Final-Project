@@ -28,7 +28,7 @@ String outputText;
 
 void setup() {
   size(1000, 700);
-  mode=false;
+  mode=true;
   process=true;
 
   min_padding = 10;
@@ -39,6 +39,9 @@ void setup() {
   width_of_array = box_size * 26;
   padding = (width - width_of_array) / 2;
   gap = (box_size + padding)*2;
+
+  inputText="";
+  outputText="";
 
   textAlign(CENTER, CENTER);
   textSize(15);
@@ -166,6 +169,12 @@ void draw() {
     if(process){
       fill(0, 255, 0);
       draw_letters(width/2-box_size/2, height-box_size-padding, box_size, new String[]{output});
+    }
+
+    if(!process){
+      inputText+=input;
+      outputText+=output;
+      draw_text(inputText, outputText);
     }
 
     key_pressed = true;
