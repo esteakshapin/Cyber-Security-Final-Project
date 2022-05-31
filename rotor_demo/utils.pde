@@ -32,8 +32,8 @@ void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes){
 }
 
 //draw highlighted boxes
-void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes, int index){
-  // println("drawing highlighted box");
+void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes, int index, int[] highlightColor){
+  println(highlightColor);
   pushMatrix();
   translate(cx, cy);
   rectMode(CORNER);
@@ -43,7 +43,7 @@ void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes, int index){
     int y = 0;
 
     if(i == index){
-      fill(0);
+      fill(highlightColor[0], highlightColor[1], highlightColor[2]);
     }else{
       fill(255);
     }
@@ -69,7 +69,6 @@ void draw_letters(int cx, int cy, int box_size, String[] wiring){
 
 //with highlighted letter
 void draw_letters(int cx, int cy, int box_size, String[] wiring, int index){
-  // println("drawing highlighted letters");
   pushMatrix();
   translate(cx, cy);
   rectMode(CORNER);

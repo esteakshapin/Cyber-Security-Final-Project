@@ -3,6 +3,7 @@ class Rotor{
   int y;
   int speed;
   int counter;
+  int marker = -1;
   String[] wiring;
   
   Rotor(int x, int y, int speed, String[] wiring){
@@ -13,6 +14,15 @@ class Rotor{
     this.counter=0;
   }
   
+  Rotor(int x, int y, int speed, String[] wiring, int marker){
+    this.x=x;
+    this.y=y;
+    this.speed=speed;
+    this.wiring=wiring.clone();
+    this.counter=0;
+    this.marker = marker;
+  }
+  
   void test(){
     System.out.println("x: "+ x+","+" y: " + y + "," + " speed: "+ speed);
     for(int i=0; i<26; i++){
@@ -21,21 +31,22 @@ class Rotor{
   }
   
   void rotor_draw(){
-    //drawing background box
-    fill(255);
-    draw_boxes(x, y, box_size, this.wiring.length);
-    
-    fill(0);
-    draw_letters(x, y, box_size, this.wiring);
+    println("draw");
+    //marker provided -- draw highlighted boxes
+    if(marker != -1){
+      this.rotor_highlight(marker, new int[]{255,0,0});
+    }else{
+      //give out of bound index -- no highlight
+      this.rotor_highlight(-1, new int[]{});
+    }
   }
   
   //draw rotor with highlighted letter
-  void rotor_highlight(int index){
+  void rotor_highlight(int index, int [] highlight_color){
+    println("Highlight ");
     //drawing background box
-    fill(255);
-    draw_boxes(x, y, box_size,this. wiring.length, index);
-    
-    fill(0);
+    draw_boxes(x, y, box_size,this. wiring.length, index, highlight_color);
+
     draw_letters(x, y, box_size, this.wiring, index);
   }
   
@@ -86,6 +97,10 @@ class Rotor{
     println(" \n -----");
     if(this.counter == speed){
       println("shifting");
+          if(this.marker != -1) {
+      if(marker == 0) marker = 25;
+      else marker -= 1;
+    }
       String first = wiring[0];
           for(int i=0; i<this.wiring.length-1; i++){
             wiring[i] = wiring[i+1];

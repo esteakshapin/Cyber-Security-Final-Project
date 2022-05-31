@@ -46,7 +46,7 @@ void setup() {
   textAlign(CENTER, CENTER);
   textSize(15);
 
-  numRotors=3;
+  numRotors=4;
   maxRotors=5;
   rotors = new Rotor[numRotors];
 
@@ -58,25 +58,25 @@ void setup() {
   }
   Rotor inputRotor = new Rotor(padding, padding, 0, alphabets);
   rotors[0] = inputRotor;
+  
   //rotor 1
-  String[] numbers = new String[26];
-  for (int i = 0; i < 26; i++) {
-    numbers[i] = String.valueOf(i);
-  }
-  numbers[25] = "3";
+  String[] rotor1 = {"0", "4", "0", "1", "0", "0", "4", "2", "5", "4", "5", "2", "0", "1", "4", "5", "0", "4", "0", "4", "5", "2", "0", "5", "1", "0"};
+
   //rotor 2
-  String[] numRev = numbers.clone();
-  Collections.reverse(Arrays.asList(numRev));
+  String[] rotor2 = {"1", "4", "4", "1", "2", "1", "0", "3", "2", "5", "4", "4", "3", "4", "5", "2", "3", "2", "2", "3", "2", "2", "4", "3", "2", "5"};
+  
+  //rotor 3
+  String[] rotor3 = {"3", "0", "0", "4", "0", "3", "0", "2", "1", "3", "1", "2", "0", "4", "0", "2", "2", "0", "4", "0", "1", "1", "1", "1", "3", "0"};
 
   //array of wirings
   //preset wirings should be supplied already
-  String[][] wirings = {alphabets, numbers, numRev};
-  int[] speeds = {0,1,2};
+  String[][] wirings = {alphabets, rotor1, rotor2, rotor3};
+  int[] speeds = {0, 1, 2, 3};
 
   //automatically setup rotors
   //y position is padding + gap * i
-  for(int i=0; i<numRotors; i++){
-    rotors[i] = new Rotor(padding, padding + gap * i, speeds[i], wirings[i]);
+  for(int i=1; i<numRotors; i++){
+    rotors[i] = new Rotor(padding, padding + gap * i, speeds[i], wirings[i], 13);
   }
 
   screen_update = true;
@@ -94,9 +94,10 @@ void draw() {
       for (Rotor x : rotors) {
         if (x != null) x.rotor_draw();
       }
+      
       //draw output box
       fill (255);
-      draw_boxes(width/2-box_size/2, height-box_size-padding, box_size, 1);
+      draw_boxes(width/2-box_size/2, rotors[rotors.length - 1].y + box_size + gap, box_size, 1);
     } else{
       //draw input rotor only
       rotors[0].rotor_draw();
@@ -122,9 +123,9 @@ void draw() {
       }
       //show process or not
       if(process){
-        r.rotor_highlight(index);
+        r.rotor_highlight(index, new int[]{0,0,0});
       } else {
-        rotors[0].rotor_highlight(index);
+        rotors[0].rotor_highlight(index, new int[]{0,0,0});
       }
 
       println("+++++");
