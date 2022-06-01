@@ -58,13 +58,13 @@ void setup() {
   }
   Rotor inputRotor = new Rotor(padding, padding, 0, alphabets);
   rotors[0] = inputRotor;
-  
+
   //rotor 1
   String[] rotor1 = {"0", "4", "0", "1", "0", "0", "4", "2", "5", "4", "5", "2", "0", "1", "4", "5", "0", "4", "0", "4", "5", "2", "0", "5", "1", "0"};
 
   //rotor 2
   String[] rotor2 = {"1", "4", "4", "1", "2", "1", "0", "3", "2", "5", "4", "4", "3", "4", "5", "2", "3", "2", "2", "3", "2", "2", "4", "3", "2", "5"};
-  
+
   //rotor 3
   String[] rotor3 = {"3", "0", "0", "4", "0", "3", "0", "2", "1", "3", "1", "2", "0", "4", "0", "2", "2", "0", "4", "0", "1", "1", "1", "1", "3", "0"};
 
@@ -94,7 +94,7 @@ void draw() {
       for (Rotor x : rotors) {
         if (x != null) x.rotor_draw();
       }
-      
+
       //draw output box
       fill (255);
       draw_boxes(width/2-box_size/2, rotors[rotors.length - 1].y + box_size + gap, box_size, 1);
@@ -140,7 +140,7 @@ void draw() {
           int startingX = r.x + box_size * index + box_size / 2;
           int startingY = r.y + box_size;
           int targetX = width/2;
-          int targetY = height-box_size-padding;
+          int targetY = targetY = rotors[rotors.length - 1].y + box_size + gap;
 
           stroke(255, 0, 0);
           line((float)startingX, (float) startingY, (float) targetX, (float) targetY);
@@ -169,7 +169,7 @@ void draw() {
     //draw output in the output box
     if(process){
       fill(0, 255, 0);
-      draw_letters(width/2-box_size/2, height-box_size-padding, box_size, new String[]{output});
+      draw_letters(width/2-box_size/2, rotors[rotors.length - 1].y + box_size + gap, box_size, new String[]{output});
     }
 
     if(!process){
