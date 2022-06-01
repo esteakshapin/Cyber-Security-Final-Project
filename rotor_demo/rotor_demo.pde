@@ -12,7 +12,6 @@ int start_time;
 
 Rotor[] rotors;
 int numRotors;
-int maxRotors;
 
 //redraw screen
 boolean screen_update;
@@ -47,7 +46,6 @@ void setup() {
   textSize(15);
 
   numRotors=4;
-  maxRotors=5;
   rotors = new Rotor[numRotors];
 
   //initializing rotor arrays
@@ -68,7 +66,7 @@ void setup() {
   //rotor 3
   String[] rotor3 = {"3", "0", "0", "4", "0", "3", "0", "2", "1", "3", "1", "2", "0", "4", "0", "2", "2", "0", "4", "0", "1", "1", "1", "1", "3", "0"};
 
-  //array of wirings
+  //array of wirings and array of speeds
   //preset wirings should be supplied already
   String[][] wirings = {alphabets, rotor1, rotor2, rotor3};
   int[] speeds = {0, 1, 2, 3};
@@ -166,16 +164,10 @@ void draw() {
       }
     }
 
-    //draw output in the output box
+    //draw output letter in the output box
     if(process){
-      fill(0, 255, 0);
+      fill(255, 0, 0);
       draw_letters(width/2-box_size/2, rotors[rotors.length - 1].y + box_size + gap, box_size, new String[]{output});
-    }
-
-    if(!process){
-      inputText+=input;
-      outputText+=output;
-      draw_text(inputText, outputText);
     }
 
     key_pressed = true;
@@ -183,7 +175,7 @@ void draw() {
   }
 
   if (key_pressed) {
-    if (pause(start_time, 1000)) {
+    if (pause(start_time, 500)) {
       // println("delayed 1000ms");
 
       for (Rotor x : rotors) {

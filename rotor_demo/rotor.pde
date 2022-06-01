@@ -5,7 +5,7 @@ class Rotor{
   int counter;
   int marker = -1;
   String[] wiring;
-  
+
   Rotor(int x, int y, int speed, String[] wiring){
     this.x=x;
     this.y=y;
@@ -13,7 +13,7 @@ class Rotor{
     this.wiring=wiring.clone();
     this.counter=0;
   }
-  
+
   Rotor(int x, int y, int speed, String[] wiring, int marker){
     this.x=x;
     this.y=y;
@@ -29,7 +29,7 @@ class Rotor{
       System.out.print(wiring[i] + ",");
     }
   }
-  
+
   void rotor_draw(){
     println("draw");
     //marker provided -- draw highlighted boxes
@@ -40,7 +40,7 @@ class Rotor{
       this.rotor_highlight(-1, new int[]{});
     }
   }
-  
+
   //draw rotor with highlighted letter
   void rotor_highlight(int index, int [] highlight_color){
     println("Highlight ");
@@ -49,16 +49,16 @@ class Rotor{
 
     draw_letters(x, y, box_size, this.wiring, index);
   }
-  
+
   char encode(String input, int index){
     char output = input.toUpperCase().charAt(0);
     try {
       //if rotor has a number
       int temp = output + Integer.parseInt(this.wiring[index]);
-      
+
       //make sure output is not greater than alphabets
       temp = (temp - 65) % 26 + 65;
-      
+
       output = char(temp);
     }
     catch(Exception e) {
@@ -69,16 +69,16 @@ class Rotor{
     }
     return output;
   }
-  
+
   char decode(String input, int index){
     char output = input.toUpperCase().charAt(0);
     try {
       //if rotor has a number
       int temp = 26 + output - Integer.parseInt(this.wiring[index]);
-      
+
       //make sure output is not greater than alphabets
       temp = (temp - 65) % 26 + 65;
-      
+
       output = char(temp);
     }
     catch(Exception e) {
