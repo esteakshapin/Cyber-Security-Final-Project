@@ -13,6 +13,15 @@ int start_time;
 Rotor[] rotors;
 int numRotors;
 
+//different pages
+boolean menu_page, encode_page, decode_page;
+
+//setup for each page
+boolean menu_page_setup, encode_page_setup, decode_page_setup;
+
+//set delay for key press
+int key_delay = 1000;
+
 //redraw screen
 boolean screen_update;
 
@@ -40,6 +49,12 @@ void setup() {
   size(1000, 700);
   mode=true;
   process=true;
+  
+  //start off with menu page
+  menu_page = false;
+  menu_page_setup = true;
+  encode_page = decode_page = false;
+  encode_page_setup = decode_page_setup = false;
 
   min_padding = 10;
   box_size = (width - (min_padding * 2)) / 26;
@@ -69,6 +84,21 @@ void setup() {
 
 
 void draw() {
+  
+  //setup menu page -- variables and background; 
+  //set menu page to true so menu page is drawn
+  if(menu_page_setup) {
+    menu_setup();
+    menu_page_setup = false;
+    menu_page = true;
+    return;
+  }
+  
+  if(menu_page){
+    draw_buttons();
+    return;
+  }
+  
   //only update boxes when needed (after input)
   if (screen_update) {
     //clearing screen
@@ -94,6 +124,7 @@ void draw() {
 
   //only accept another input after the first one is finished
   if (!key_pressed && keyPressed && ((key >= 65 && key < 65 + 26) || (key >= 97 && key < 97 + 26))) {
+    
     //capitalizing inputs
     int index = Character.toString(key).toUpperCase().charAt(0) - 65;
     String input = Character.toString(key);
@@ -125,7 +156,7 @@ void draw() {
           int startingX = r.x + box_size * index + box_size / 2;
           int startingY = r.y + box_size;
           int targetX = width/2;
-          int targetY = targetY = rotors[rotors.length - 1].y + box_size + gap;
+          int targetY = rotors[rotors.length - 1].y + box_size + gap;
 
           stroke(255, 0, 0);
           line((float)startingX, (float) startingY, (float) targetX, (float) targetY);
@@ -163,7 +194,7 @@ void draw() {
 
 
   if (key_pressed) {
-    if (pause(start_time, 500)) {
+    if (pause(start_time, key_delay)) {
       // println("delayed 1000ms");
 
       for (Rotor x : rotors) {
