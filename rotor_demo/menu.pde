@@ -60,8 +60,12 @@ boolean overRect(int x, int y, int width, int height) {
 }
 
 void mousePressed() {
+  if (tutorial_rectOver) {
+    switchScreen("tutorial");
+  }
   if (encode_rectOver) {
-    currentColor = color(0, 100, 0);
+    encode_rectOver = false;
+    switchScreen("encode");
   }
   
 }
