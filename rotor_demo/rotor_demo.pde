@@ -88,12 +88,21 @@ void draw() {
   //setup menu page -- variables and background; 
   //set menu page to true so menu page is drawn
   if(menu_page_setup) {
+    
+    //remove the other pages
+    encode_page = encode_page_setup = false;
+    decode_page = decode_page_setup = false;
+    
+    //setup menu page
     menu_setup();
     menu_page_setup = false;
+    
+    //render menu page
     menu_page = true;
     return;
   }
   
+  //render menu page
   if(menu_page){
     draw_buttons();
     return;

@@ -1,12 +1,13 @@
-int rectX, rectY;      // Position of square button
-int circleX, circleY;  // Position of circle button
-int rectSize = 90;     // Diameter of rect
-int circleSize = 93;   // Diameter of circle
+int encode_rectX, encode_rectY;      // Position of encode button
+int decode_rectX, decode_rectY;      // Position of decode button
+int tutorial_rectX, tutorial_rectY;      // Position of decode button
+int rectSizeX;     // Width of encode_rect
+int rectSizeY;   //height of encode_rect
+int circleSize;   // Diameter of circle
 color rectColor, circleColor, baseColor;
 color rectHighlight, circleHighlight;
 color currentColor;
-boolean rectOver = false;
-boolean circleOver = false;
+boolean encode_rectOver, decode_rectOver, tutorial_rectOver = false;
 
 void menu_setup() {
   rectColor = color(0);
@@ -15,23 +16,37 @@ void menu_setup() {
   circleHighlight = color(204);
   baseColor = color(102);
   currentColor = baseColor;
-  circleX = width/2+circleSize/2+10;
-  circleY = height/2;
-  rectX = width/2-rectSize-10;
-  rectY = height/2-rectSize/2;
+  rectSizeX  = 200;
+  rectSizeY = 50;
+  circleSize = 93;
+  
+  //encode rect offset is from the middle buttonw with a 10 px gap
+  encode_rectX = width/2 - rectSizeX / 2;
+  encode_rectY = height/2 - rectSizeY / 2 - 10 - rectSizeY;
+  
+  //decode rect; should be in the middle of the screen
+  decode_rectX = encode_rectX;
+  decode_rectY = height/2 - rectSizeY / 2;
+  
+  //tutorial rec; offset below the middle button with a 10 px gap
+  tutorial_rectX = encode_rectX;
+  tutorial_rectY = decode_rectY + rectSizeY + 10;
   ellipseMode(CENTER);
 }
 
 //check if mouse is over either button
 void update(int x, int y) {
-  if ( overCircle(circleX, circleY, circleSize) ) {
-    circleOver = true;
-    rectOver = false;
-  } else if ( overRect(rectX, rectY, rectSize, rectSize) ) {
-    rectOver = true;
-    circleOver = false;
-  } else {
-    circleOver = rectOver = false;
+  
+  //see if mouse is over envode rect
+  if(overRect(encode_rectX, encode_rectY, rectSizeX, rectSizeY)){
+    encode_rectOver = true;
+    decode_rectOver = tutorial_rectOver = false;
+  }else if(overRect(decode_rectX, decode_rectY, rectSizeX, rectSizeY)){
+    decode_rectOver = true;
+    encode_rectOver = tutorial_rectOver = false;
+  }else if(overRect(tutorial_rectX, tutorial_rectY, rectSizeX, rectSizeY)){
+    tutorial_rectOver = true;
+    encode_rectOver = decode_rectOver = false;
   }
 }
 
@@ -44,42 +59,42 @@ boolean overRect(int x, int y, int width, int height) {
   }
 }
 
-boolean overCircle(int x, int y, int diameter) {
-  float disX = x - mouseX;
-  float disY = y - mouseY;
-  if (sqrt(sq(disX) + sq(disY)) < diameter/2 ) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
 void mousePressed() {
-  if (circleOver) {
-    currentColor = circleColor;
+  if (encode_rectOver) {
+    currentColor = color(0, 100, 0);
   }
-  if (rectOver) {
-    currentColor = rectColor;
-  }
+  
 }
 
 void draw_buttons() {
   background(currentColor);
   update(mouseX, mouseY);
 
-  if (rectOver) {
+  stroke(255);
+  if (encode_rectOver) {
     fill(rectHighlight);
   } else {
     fill(rectColor);
   }
-  stroke(255);
-  rect(rectX, rectY, rectSize, rectSize);
-
-  if (circleOver) {
-    fill(circleHighlight);
+  rect(encode_rectX, encode_rectY, rectSizeX, rectSizeY);
+  
+  if (decode_rectOver) {
+    fill(rectHighlight);
   } else {
-    fill(circleColor);
+    fill(rectColor);
   }
-  stroke(0);
-  ellipse(circleX, circleY, circleSize, circleSize);
+  rect(decode_rectX, decode_rectY, rectSizeX, rectSizeY);
+  
+  if (tutorial_rectOver) {
+    fill(rectHighlight);
+  } else {
+    fill(rectColor);
+  }
+  rect(tutorial_rectX, tutorial_rectY, rectSizeX, rectSizeY);
+  
+  fill(255);
+  draw_letters(encode_rectX + rectSizeX / 2, encode_rectY + rectSizeY / 2, 0, new String[]{"Encode"});
+  draw_letters(decode_rectX + rectSizeX / 2, decode_rectY + rectSizeY / 2, 0, new String[]{"Decode"});
+  draw_letters(tutorial_rectX + rectSizeX / 2, tutorial_rectY + rectSizeY / 2, 0, new String[]{"Tutorial"});
+
 }
