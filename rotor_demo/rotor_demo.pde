@@ -21,9 +21,20 @@ boolean screen_update;
 boolean mode;
 boolean process;
 
-//input and output logs
-String inputText;
-String outputText;
+//Example Cipher
+//input rotor
+String[] alphabets = {"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+//rotor 1
+String[] rotor1 = {"0", "4", "0", "1", "0", "0", "4", "2", "5", "4", "5", "2", "0", "1", "4", "5", "0", "4", "0", "4", "5", "2", "0", "5", "1", "0"};
+//rotor 2
+String[] rotor2 = {"1", "4", "4", "1", "2", "1", "0", "3", "2", "5", "4", "4", "3", "4", "5", "2", "3", "2", "2", "3", "2", "2", "4", "3", "2", "5"};
+//rotor 3
+String[] rotor3 = {"3", "0", "0", "4", "0", "3", "0", "2", "1", "3", "1", "2", "0", "4", "0", "2", "2", "0", "4", "0", "1", "1", "1", "1", "3", "0"};
+
+String[][] wirings = {alphabets, rotor1, rotor2, rotor3};
+int[] speeds = {0, 1, 2, 3};
+
+
 
 void setup() {
   size(1000, 700);
@@ -39,43 +50,19 @@ void setup() {
   padding = (width - width_of_array) / 2;
   gap = (box_size + padding)*2;
 
-  inputText="";
-  outputText="";
-
   textAlign(CENTER, CENTER);
   textSize(15);
 
   numRotors=4;
   rotors = new Rotor[numRotors];
 
-  //initializing rotor arrays
-  //input array
-  String[] alphabets = new String[26];
-  for (int i = 0; i < 26; i++) {
-    alphabets[i] = String.valueOf(char(i + 65));
-  }
-  Rotor inputRotor = new Rotor(padding, padding, 0, alphabets);
-  rotors[0] = inputRotor;
-
-  //rotor 1
-  String[] rotor1 = {"0", "4", "0", "1", "0", "0", "4", "2", "5", "4", "5", "2", "0", "1", "4", "5", "0", "4", "0", "4", "5", "2", "0", "5", "1", "0"};
-
-  //rotor 2
-  String[] rotor2 = {"1", "4", "4", "1", "2", "1", "0", "3", "2", "5", "4", "4", "3", "4", "5", "2", "3", "2", "2", "3", "2", "2", "4", "3", "2", "5"};
-
-  //rotor 3
-  String[] rotor3 = {"3", "0", "0", "4", "0", "3", "0", "2", "1", "3", "1", "2", "0", "4", "0", "2", "2", "0", "4", "0", "1", "1", "1", "1", "3", "0"};
-
-  //array of wirings and array of speeds
-  //preset wirings should be supplied already
-  String[][] wirings = {alphabets, rotor1, rotor2, rotor3};
-  int[] speeds = {0, 1, 2, 3};
-
   //automatically setup rotors
   //y position is padding + gap * i
   for(int i=1; i<numRotors; i++){
     rotors[i] = new Rotor(padding, padding + gap * i, speeds[i], wirings[i], 13);
   }
+  //setting up input rotor
+  rotors[0] = new Rotor(padding, padding, 0, alphabets);
 
   screen_update = true;
 }
@@ -174,6 +161,7 @@ void draw() {
     start_time = millis();
   }
 
+
   if (key_pressed) {
     if (pause(start_time, 500)) {
       // println("delayed 1000ms");
@@ -185,4 +173,27 @@ void draw() {
       screen_update = true;
     }
   }
+}
+
+void keyPressed(){
+  if(key == ' '){
+    println("Pressed spacebar");
+    reset();
+  }
+}
+
+//doesn't work yet
+void reset(){
+  //switch from encode to decode and vice versa
+  mode = !mode;
+
+  //reset rotors
+  rotors[0] = new Rotor(padding, padding, 0, alphabets);
+  for(int i=1; i<numRotors; i++){
+    rotors[i] = new Rotor(padding, padding + gap * i, speeds[i], wirings[i], 13);
+  }
+
+  //flash screen then update
+  background(0, 0, 0);
+  screen_update = true;
 }
