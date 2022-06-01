@@ -44,6 +44,15 @@ String[][] wirings = {alphabets, rotor1, rotor2, rotor3};
 int[] speeds = {0, 1, 2, 3};
 
 
+//button global constants
+int menu_rectX, menu_rectY;      // Position of menu button
+
+int rectSizeX;     // Width of encode_rect
+int rectSizeY;   //height of encode_rect
+color rectColor, circleColor, baseColor;
+color rectHighlight, circleHighlight;
+color currentColor;
+
 
 void setup() {
   size(1000, 700);
@@ -68,18 +77,27 @@ void setup() {
   textAlign(CENTER, CENTER);
   textSize(15);
 
+  //button setup
+  rectColor = color(0);
+  rectHighlight = color(51);
+  baseColor = color(102);
+  currentColor = baseColor;
+  rectSizeX  = 200;
+  rectSizeY = 50;
+  screen_update = true;
+  menu_rectX = menu_rectY = padding;
+
   numRotors=4;
   rotors = new Rotor[numRotors];
+
+  //setting up input rotor
+  rotors[0] = new Rotor(padding, padding + rectSizeY + padding * 2, 0, alphabets);
 
   //automatically setup rotors
   //y position is padding + gap * i
   for (int i=1; i<numRotors; i++) {
-    rotors[i] = new Rotor(padding, padding + gap * i, speeds[i], wirings[i], 13);
+    rotors[i] = new Rotor(rotors[0].x, rotors[0].y + gap * i, speeds[i], wirings[i], 13);
   }
-  //setting up input rotor
-  rotors[0] = new Rotor(padding, padding, 0, alphabets);
-
-  screen_update = true;
 }
 
 
@@ -137,25 +155,25 @@ void draw() {
   }
 }
 
-void keyPressed() {
-  if (key == ' ') {
-    println("Pressed spacebar");
-    reset();
-  }
-}
+//void keyPressed() {
+//  if (key == ' ') {
+//    println("Pressed spacebar");
+//    reset();
+//  }
+//}
 
-//doesn't work yet
-void reset() {
-  //switch from encode to decode and vice versa
-  mode = !mode;
+////doesn't work yet
+//void reset() {
+//  //switch from encode to decode and vice versa
+//  mode = !mode;
 
-  //reset rotors
-  rotors[0] = new Rotor(padding, padding, 0, alphabets);
-  for (int i=1; i<numRotors; i++) {
-    rotors[i] = new Rotor(padding, padding + gap * i, speeds[i], wirings[i], 13);
-  }
+//  //reset rotors
+//  rotors[0] = new Rotor(padding, padding, 0, alphabets);
+//  for (int i=1; i<numRotors; i++) {
+//    rotors[i] = new Rotor(padding, padding + gap * i, speeds[i], wirings[i], 13);
+//  }
 
-  //flash screen then update
-  background(0, 0, 0);
-  screen_update = true;
-}
+//  //flash screen then update
+//  background(0, 0, 0);
+//  screen_update = true;
+//}

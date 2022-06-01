@@ -1,25 +1,9 @@
 int encode_rectX, encode_rectY;      // Position of encode button
 int decode_rectX, decode_rectY;      // Position of decode button
 int tutorial_rectX, tutorial_rectY;      // Position of decode button
-int rectSizeX;     // Width of encode_rect
-int rectSizeY;   //height of encode_rect
-int circleSize;   // Diameter of circle
-color rectColor, circleColor, baseColor;
-color rectHighlight, circleHighlight;
-color currentColor;
 boolean encode_rectOver, decode_rectOver, tutorial_rectOver = false;
 
-void menu_setup() {
-  rectColor = color(0);
-  rectHighlight = color(51);
-  circleColor = color(255);
-  circleHighlight = color(204);
-  baseColor = color(102);
-  currentColor = baseColor;
-  rectSizeX  = 200;
-  rectSizeY = 50;
-  circleSize = 93;
-  
+void menu_setup() {  
   //encode rect offset is from the middle buttonw with a 10 px gap
   encode_rectX = width/2 - rectSizeX / 2;
   encode_rectY = height/2 - rectSizeY / 2 - 10 - rectSizeY;
@@ -31,7 +15,6 @@ void menu_setup() {
   //tutorial rec; offset below the middle button with a 10 px gap
   tutorial_rectX = encode_rectX;
   tutorial_rectY = decode_rectY + rectSizeY + 10;
-  ellipseMode(CENTER);
 }
 
 //check if mouse is over either button
@@ -95,6 +78,8 @@ void draw_buttons() {
     fill(rectColor);
   }
   rect(tutorial_rectX, tutorial_rectY, rectSizeX, rectSizeY);
+  
+  stroke(0);
   
   fill(255);
   draw_letters(encode_rectX + rectSizeX / 2, encode_rectY + rectSizeY / 2, 0, new String[]{"Encode"});

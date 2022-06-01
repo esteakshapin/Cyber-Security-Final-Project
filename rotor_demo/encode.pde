@@ -3,11 +3,19 @@ ArrayList<String> encodedText;
 void setup_encode_page(){
   encodedText = new ArrayList<String>();
   screen_update=true;
-  key_delay = 100;
+  key_delay = 200;
   textAlign(CENTER, CENTER);
+  //process = false;
 }
 
 void render_encode_page(){
+  stroke(255);
+  if (true) {
+    fill(rectHighlight);
+  } else {
+    fill(rectColor);
+  }
+  rect(menu_rectX, menu_rectY, rectSizeX, rectSizeY);
   //only update boxes when needed (after input)
   if (screen_update) {
     //clearing screen
