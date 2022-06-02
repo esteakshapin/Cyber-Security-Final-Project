@@ -18,7 +18,7 @@ void menu_setup() {
 }
 
 //check if mouse is over either button
-void update(int x, int y) {
+void update() {
   
   //see if mouse is over envode rect
   if(overRect(encode_rectX, encode_rectY, rectSizeX, rectSizeY)){
@@ -33,29 +33,9 @@ void update(int x, int y) {
   }
 }
 
-boolean overRect(int x, int y, int width, int height) {
-  if (mouseX >= x && mouseX <= x+width && 
-    mouseY >= y && mouseY <= y+height) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-void mousePressed() {
-  if (tutorial_rectOver) {
-    switchScreen("tutorial");
-  }
-  if (encode_rectOver) {
-    encode_rectOver = false;
-    switchScreen("encode");
-  }
-  
-}
-
 void draw_buttons() {
   background(currentColor);
-  update(mouseX, mouseY);
+  update();
 
   stroke(255);
   if (encode_rectOver) {

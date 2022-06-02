@@ -9,13 +9,7 @@ void setup_encode_page(){
 }
 
 void render_encode_page(){
-  stroke(255);
-  if (true) {
-    fill(rectHighlight);
-  } else {
-    fill(rectColor);
-  }
-  rect(menu_rectX, menu_rectY, rectSizeX, rectSizeY);
+  draw_menu_button();
   //only update boxes when needed (after input)
   if (screen_update) {
     //clearing screen

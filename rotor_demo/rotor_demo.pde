@@ -38,7 +38,7 @@ String[] rotor1 = {"0", "4", "0", "1", "0", "0", "4", "2", "5", "4", "5", "2", "
 //rotor 2
 String[] rotor2 = {"1", "4", "4", "1", "2", "1", "0", "3", "2", "5", "4", "4", "3", "4", "5", "2", "3", "2", "2", "3", "2", "2", "4", "3", "2", "5"};
 //rotor 3
-String[] rotor3 = {"3", "0", "0", "4", "0", "3", "0", "2", "1", "3", "1", "2", "0", "4", "0", "2", "2", "0", "4", "0", "1", "1", "1", "1", "3", "0"};
+String[] rotor3 = {"-1", "0", "0", "4", "0", "3", "0", "2", "1", "3", "1", "2", "0", "4", "0", "2", "2", "0", "4", "0", "1", "1", "1", "1", "3", "0"};
 
 String[][] wirings = {alphabets, rotor1, rotor2, rotor3};
 int[] speeds = {0, 1, 2, 3};
@@ -46,6 +46,7 @@ int[] speeds = {0, 1, 2, 3};
 
 //button global constants
 int menu_rectX, menu_rectY;      // Position of menu button
+boolean menu_rectOver;
 
 int rectSizeX;     // Width of encode_rect
 int rectSizeY;   //height of encode_rect
@@ -140,7 +141,7 @@ void draw() {
 
   //setup encode page
   if (encode_page_setup) { 
-    //tutorial setup
+    //encode setup
     setup_encode_page();
 
     //render tutorial page
@@ -152,6 +153,22 @@ void draw() {
 
   if (encode_page) {
     render_encode_page();
+  }
+  
+  //decode
+    if (decode_page_setup) { 
+    //decode setup
+    setup_decode_page();
+
+    //render tutorial page
+    decode_page = true;
+    decode_page_setup = false;
+
+    return;
+  }
+
+  if (decode_page) {
+    render_decode_page();
   }
 }
 

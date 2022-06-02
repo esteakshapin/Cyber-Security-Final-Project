@@ -147,8 +147,8 @@ void switchScreen(String pageName) {
     encode_page = encode_page_setup = false;
     tutorial_page = tutorial_page_setup = false;
     break;
-    
-    case "tutorial":
+
+  case "tutorial":
     //setup encode page
     tutorial_page_setup = true;
 
@@ -158,4 +158,56 @@ void switchScreen(String pageName) {
     decode_page = decode_page_setup = false;
     break;
   }
+}
+
+
+
+boolean overRect(int x, int y, int width, int height) {
+  if (mouseX >= x && mouseX <= x+width && 
+    mouseY >= y && mouseY <= y+height) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+void mousePressed() {
+  if (tutorial_rectOver) {
+    tutorial_rectOver = false;
+    switchScreen("tutorial");
+  }
+  if (encode_rectOver) {
+    encode_rectOver = false;
+    switchScreen("encode");
+  }
+  if (menu_rectOver) {
+    menu_rectOver = false;
+    switchScreen("menu");
+  }
+  if (decode_rectOver) {
+    decode_rectOver = false;
+    switchScreen("decode");
+  }
+}
+
+void menu_button_update() {
+  if (overRect(menu_rectX, menu_rectY, rectSizeX, rectSizeY)) {
+    menu_rectOver = true;
+  } else {
+    menu_rectOver = false;
+  }
+}
+
+void draw_menu_button() {
+  menu_button_update();
+  stroke(255);
+  if (menu_rectOver) {
+    fill(rectHighlight);
+  } else {
+    fill(150);
+  }
+  rect(menu_rectX, menu_rectY, rectSizeX, rectSizeY);
+
+  fill(255);
+  draw_letters(menu_rectX + rectSizeX / 2, menu_rectY + rectSizeY / 2, 0, new String[]{"Menu"});
 }

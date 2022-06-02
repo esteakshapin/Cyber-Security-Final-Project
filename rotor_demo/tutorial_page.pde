@@ -1,4 +1,5 @@
 void render_tutorial_page(){
+  draw_menu_button();
   //only update boxes when needed (after input)
   if (screen_update) {
     //clearing screen
