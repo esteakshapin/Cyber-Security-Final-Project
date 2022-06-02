@@ -43,6 +43,11 @@ String[] rotor3 = {"-1", "0", "0", "4", "0", "3", "0", "2", "1", "3", "1", "2", 
 String[][] wirings = {alphabets, rotor1, rotor2, rotor3};
 int[] speeds = {0, 1, 2, 3};
 
+String[] reverseR1 = {"0" ,"1" ,"5" ,"0" ,"2" ,"5" ,"4" ,"0" ,"4" ,"0" ,"5" ,"4" ,"1" ,"0" ,"2" ,"5" ,"4" ,"5" ,"2" ,"4" ,"0" ,"0" ,"1" ,"0" ,"4" ,"0"};
+String[] reverseR2 = {"5" ,"2" ,"3" ,"4" ,"2" ,"2" ,"3" ,"2" ,"2" ,"3" ,"2" ,"5" ,"4" ,"3" ,"4" ,"4" ,"5" ,"2" ,"3" ,"0" ,"1" ,"2" ,"1" ,"4" ,"4" ,"1"};
+String[] reverseR3 = {"0" ,"3" ,"1" ,"1" ,"1" ,"1" ,"0" ,"4" ,"0" ,"2" ,"2" ,"0" ,"4" ,"0" ,"2" ,"1" ,"3" ,"1" ,"2" ,"0" ,"3" ,"0" ,"4" ,"0" ,"0" ,"-1"};
+
+String[][] reverseWirings = {alphabets, reverseR3, reverseR2, reverseR1};
 
 //button global constants
 int menu_rectX, menu_rectY;      // Position of menu button

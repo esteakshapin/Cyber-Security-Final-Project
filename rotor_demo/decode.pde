@@ -16,7 +16,7 @@ void setup_decode_page(){
   //automatically setup rotors
   //y position is padding + gap * i
   for (int i=1; i<numRotors; i++) {
-    rotors[i] = new Rotor(rotors[0].x, rotors[0].y + gap * i, speeds[i], wirings[i], 13);
+    rotors[i] = new Rotor(rotors[0].x, rotors[0].y + gap * i, speeds[i], reverseWirings[i], 13);
   }
 }
 
@@ -65,9 +65,7 @@ void render_decode_page(){
       //encode or decode
       if(mode){
         output = r.encode(output, index) + "";
-      } else{
-        output = r.decode(output, index) + "";
-      }
+      } 
       //show process or not
       if(process){
         r.rotor_highlight(index, new int[]{0,0,0});
@@ -107,6 +105,7 @@ void render_decode_page(){
         }
       }
     }
+    
 
     //draw output letter in the output box
     if(process){

@@ -76,6 +76,12 @@
 ### ***Shapin***
 
 
+## 5/31
+### ***Bryan***
+1. Fix decode
+
+### ***Shapin***
+
 
 # References and Resources Used
 https://cryptocellar.org/simula/
