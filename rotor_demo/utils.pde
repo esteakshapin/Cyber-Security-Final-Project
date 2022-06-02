@@ -33,7 +33,7 @@ void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes) {
 
 //draw highlighted boxes
 void draw_boxes(int cx, int cy, int box_size, int numberOfBoxes, int index, int[] highlightColor) {
-  println(highlightColor);
+  //println(highlightColor);
   pushMatrix();
   translate(cx, cy);
   rectMode(CORNER);
@@ -210,4 +210,18 @@ void draw_menu_button() {
 
   fill(255);
   draw_letters(menu_rectX + rectSizeX / 2, menu_rectY + rectSizeY / 2, 0, new String[]{"Menu"});
+}
+
+void setup_rotors(){
+  //numRotors=4;
+  rotors = new Rotor[numRotors];
+
+  //setting up input rotor
+  rotors[0] = new Rotor(padding, padding + rectSizeY + padding * 2, 0, alphabets);
+
+  //automatically setup rotors
+  //y position is padding + gap * i
+  for (int i=1; i<numRotors; i++) {
+    rotors[i] = new Rotor(rotors[0].x, rotors[0].y + gap * i, speeds[i], wirings[i], 13);
+  }
 }

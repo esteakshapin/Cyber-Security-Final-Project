@@ -11,7 +11,7 @@ boolean key_pressed = false;
 int start_time;
 
 Rotor[] rotors;
-int numRotors;
+int numRotors=4;
 
 //Array of pages
 boolean menu_page, encode_page, decode_page, tutorial_page;
@@ -33,16 +33,30 @@ boolean process;
 //Example Cipher
 //input rotor
 String[] alphabets = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+
 //rotor 1
-String[] rotor1 = {"0", "4", "0", "1", "0", "0", "4", "2", "5", "4", "5", "2", "0", "1", "4", "5", "0", "4", "0", "4", "5", "2", "0", "5", "1", "0"};
+String[] rotor1  = new String[alphabets.length];
+String[] rotor1_reverse = new String[alphabets.length];
+;
 //rotor 2
-String[] rotor2 = {"1", "4", "4", "1", "2", "1", "0", "3", "2", "5", "4", "4", "3", "4", "5", "2", "3", "2", "2", "3", "2", "2", "4", "3", "2", "5"};
+String[] rotor2 = new String[alphabets.length];
+;
+String[] rotor2_reverse = new String[alphabets.length];
+;
 //rotor 3
-String[] rotor3 = {"-1", "0", "0", "4", "0", "3", "0", "2", "1", "3", "1", "2", "0", "4", "0", "2", "2", "0", "4", "0", "1", "1", "1", "1", "3", "0"};
+String[] rotor3 = new String[alphabets.length];
+;
+String[] rotor3_reverse = new String[alphabets.length];
+;
 
 String[][] wirings = {alphabets, rotor1, rotor2, rotor3};
+String[][] wirings_reverse = {alphabets, rotor1_reverse, rotor2_reverse, rotor3_reverse};
+
 int[] speeds = {0, 1, 2, 3};
 
+int[] temp_rotor;
+int[] temp_rotor_reverse;
+ArrayList<Integer> reserve;
 
 //button global constants
 int menu_rectX, menu_rectY;      // Position of menu button
@@ -87,6 +101,39 @@ void setup() {
   rectSizeY = 50;
   screen_update = true;
   menu_rectX = menu_rectY = padding;
+
+
+
+  Random generator = new Random(112);
+
+  for (int x = 1; x < wirings.length; x++) {
+    temp_rotor = new int[alphabets.length];
+    temp_rotor_reverse = new int[temp_rotor.length];
+    reserve = new ArrayList<Integer>();
+
+    //adding all the indexes to arraylist
+    for (int i = 0; i < temp_rotor.length; i++) {
+      reserve.add(i);
+    }
+
+    for (int i = 0; i < temp_rotor.length; i++) {
+
+      int index = generator.nextInt(reserve.size());
+      //println("index " + index);
+      //println("value " + reserve.get(index));
+      temp_rotor[i] = reserve.get(index) - i;
+      temp_rotor_reverse[reserve.get(index)] = temp_rotor[i] * -1;
+
+      //println("++++++");
+      reserve.remove(index);
+    }
+
+    for (int i = 0; i < temp_rotor.length; i++) {
+      wirings[x][i] = String.valueOf(temp_rotor[i]);
+      wirings_reverse[x][i] = String.valueOf(temp_rotor_reverse[i]);
+    }
+    
+  }
 }
 
 
@@ -141,9 +188,9 @@ void draw() {
   if (encode_page) {
     render_encode_page();
   }
-  
+
   //decode
-    if (decode_page_setup) { 
+  if (decode_page_setup) { 
     //decode setup
     setup_decode_page();
 

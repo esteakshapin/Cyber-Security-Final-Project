@@ -25,13 +25,13 @@ class Rotor{
   
   void test(){
     System.out.println("x: "+ x+","+" y: " + y + "," + " speed: "+ speed);
-    for(int i=0; i<26; i++){
-      System.out.print(wiring[i] + ",");
+    for(int i=0; i<wiring.length; i++){
+      //System.out.print(wiring[i] + ",");
     }
   }
 
   void rotor_draw(){
-    println("draw");
+    //println("draw");
     //marker provided -- draw highlighted boxes
     if(marker != -1){
       this.rotor_highlight(marker, new int[]{255,0,0});
@@ -43,7 +43,7 @@ class Rotor{
 
   //draw rotor with highlighted letter
   void rotor_highlight(int index, int [] highlight_color){
-    println("Highlight ");
+    //println("Highlight ");
     //drawing background box
     draw_boxes(x, y, box_size,this. wiring.length, index, highlight_color);
 
@@ -57,7 +57,7 @@ class Rotor{
       int temp = output + Integer.parseInt(this.wiring[index]);
 
       //make sure output is not greater than alphabets
-      temp = (temp - 65) % 26 + 65;
+      temp = (temp - 65 + 26) % 26 + 65;
 
       output = char(temp);
     }
@@ -93,10 +93,10 @@ class Rotor{
   //need to change - speed shud determine when rotors turn i.e 0,1,2 inputs after
   void turn(){
     this.counter++;
-    this.test();
-    println(" \n -----");
+    //this.test();
+    //println(" \n -----");
     if(this.counter == speed){
-      println("shifting");
+      //println("shifting");
           if(this.marker != -1) {
       if(marker == 0) marker = 25;
       else marker -= 1;
@@ -110,6 +110,6 @@ class Rotor{
     }
     if(this.counter > this.speed ) counter = 0;
 
-    println(String.format("speed: %s | counter: %s", speed, counter));
+    //println(String.format("speed: %s | counter: %s", speed, counter));
   }
 }

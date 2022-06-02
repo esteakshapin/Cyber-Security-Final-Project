@@ -1,18 +1,8 @@
 void setup_tutorial_page() {
-  numRotors=4;
-  rotors = new Rotor[numRotors];
-
-  //setting up input rotor
-  rotors[0] = new Rotor(padding, padding + rectSizeY + padding * 2, 0, alphabets);
-
-  //automatically setup rotors
-  //y position is padding + gap * i
-  for (int i=1; i<numRotors; i++) {
-    rotors[i] = new Rotor(rotors[0].x, rotors[0].y + gap * i, speeds[i], wirings[i], 13);
-  }
+  setup_rotors();
 
   screen_update = true;
-  key_delay = 1000;
+  key_delay = 5000;
 }
 
 void render_tutorial_page() {
@@ -40,7 +30,7 @@ void render_tutorial_page() {
     screen_update = false;
   }
 
-  //only accept another input after the first one is finished
+  ///only accept another input after the first one is finished
   if (!key_pressed && keyPressed && ((key >= 65 && key < 65 + 26) || (key >= 97 && key < 97 + 26))) {
 
     //capitalizing inputs
@@ -49,23 +39,32 @@ void render_tutorial_page() {
     String output = input;
 
     for (Rotor r : rotors) {
-      //encode or decode
-      if (mode) {
-        output = r.encode(output, index) + "";
-      } else {
-        output = r.decode(output, index) + "";
-      }
+      
       //show process or not
       if (process) {
         r.rotor_highlight(index, new int[]{0, 0, 0});
       } else {
         rotors[0].rotor_highlight(index, new int[]{0, 0, 0});
       }
-
-      println("+++++");
-      println(rotors[rotors.length - 1]);
-      println(r);
-      println(r == rotors[rotors.length - 1]);
+      //encode or decode
+      if (mode) {
+        String temp = output.toUpperCase();
+        output = r.encode(output, index) + "";
+        
+        int difference = output.charAt(0) - temp.charAt(0);
+        
+        index += difference;
+        
+        while(index > r.wiring.length) {
+          index = index - r.wiring.length;
+        }
+        
+        println("difference: " + difference);
+        println("index: " + index);
+        
+      } else {
+        output = r.decode(output, index) + "";
+      }
 
       //only draw arrows if needed
       if (process) {

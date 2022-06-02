@@ -3,11 +3,9 @@ ArrayList<String> decodedText;
 void setup_decode_page(){
   decodedText = new ArrayList<String>();
   screen_update=true;
-  key_delay = 200;
+  key_delay = 300;
   textAlign(CENTER, CENTER);
   //process = false;
-  
-  numRotors=4;
   rotors = new Rotor[numRotors];
 
   //setting up input rotor
@@ -16,20 +14,18 @@ void setup_decode_page(){
   //automatically setup rotors
   //y position is padding + gap * i
   for (int i=1; i<numRotors; i++) {
-    rotors[i] = new Rotor(rotors[0].x, rotors[0].y + gap * i, speeds[i], wirings[i], 13);
+    rotors[rotors.length - i] = new Rotor(rotors[0].x, rotors[0].y + gap * (rotors.length - i), speeds[i], wirings_reverse[i], 13);
   }
 }
 
-
-//same as incode -- needs to implement decode function
-void render_decode_page(){
+void render_decode_page() {
   draw_menu_button();
   //only update boxes when needed (after input)
   if (screen_update) {
     //clearing screen
     background(200);
-
-    if(process){
+//saxlzi
+    if (process) {
       //draw rotors
       for (Rotor x : rotors) {
         if (x != null) x.rotor_draw();
@@ -38,45 +34,56 @@ void render_decode_page(){
       //draw output box
       fill (255);
       draw_boxes(width/2-box_size/2, rotors[rotors.length - 1].y + box_size + gap, box_size, 1);
-    } else{
+    } else {
       //draw input rotor only
       rotors[0].rotor_draw();
       //input and output text boxes
     }
-    
-    String[] temp_encoded = new String[decodedText.size()];
-    decodedText.toArray(temp_encoded);
-    //draw encoded text under the output box
-    fill(200,0,0);
-    draw_letters(gap, rotors[rotors.length - 1].y + box_size + gap + box_size + box_size, 17, temp_encoded);
+
+    String[] temp_decoded = new String[decodedText.size()];
+    decodedText.toArray(temp_decoded);
+
+    //draw decoded text under the output box
+    fill(200, 0, 0);
+    draw_letters(gap, rotors[rotors.length - 1].y + box_size + gap + box_size + box_size, 17, temp_decoded);
 
     screen_update = false;
   }
 
   //only accept another input after the first one is finished
   if (!key_pressed && keyPressed && ((key >= 65 && key < 65 + 26) || (key >= 97 && key < 97 + 26))) {
-    
+
     //capitalizing inputs
     int index = Character.toString(key).toUpperCase().charAt(0) - 65;
     String input = Character.toString(key);
     String output = input;
-
+    
     for (Rotor r : rotors) {
-      //encode or decode
-      if(mode){
-        output = r.encode(output, index) + "";
-      } else{
-        output = r.decode(output, index) + "";
-      }
+
       //show process or not
-      if(process){
-        r.rotor_highlight(index, new int[]{0,0,0});
+      if (process) {
+        r.rotor_highlight(index, new int[]{0, 0, 0});
       } else {
-        rotors[0].rotor_highlight(index, new int[]{0,0,0});
+        rotors[0].rotor_highlight(index, new int[]{0, 0, 0});
+      }
+      //decode or decode
+      if (mode) {
+        String temp = output.toUpperCase();
+        output = r.encode(output, index) + "";
+
+        int difference = output.charAt(0) - temp.charAt(0);
+
+        index += difference;
+
+        while (index > r.wiring.length) {
+          index = index - r.wiring.length;
+        }
+      } else {
+        output = r.decode(output, index) + "";
       }
 
       //only draw arrows if needed
-      if(process){
+      if (process) {
         if (r == rotors[rotors.length - 1]) {
           //drawing arrow to print box
           int startingX = r.x + box_size * index + box_size / 2;
@@ -109,12 +116,12 @@ void render_decode_page(){
     }
 
     //draw output letter in the output box
-    if(process){
+    if (process) {
       fill(255, 0, 0);
       draw_letters(width/2-box_size/2, rotors[rotors.length - 1].y + box_size + gap, box_size, new String[]{output});
     }
-    
-    //add letter to encoded text
+
+    //add letter to decoded text
     decodedText.add(output);
 
     key_pressed = true;
@@ -133,5 +140,4 @@ void render_decode_page(){
       screen_update = true;
     }
   }
-
 }
