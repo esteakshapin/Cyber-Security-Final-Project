@@ -87,18 +87,6 @@ void setup() {
   rectSizeY = 50;
   screen_update = true;
   menu_rectX = menu_rectY = padding;
-
-  numRotors=4;
-  rotors = new Rotor[numRotors];
-
-  //setting up input rotor
-  rotors[0] = new Rotor(padding, padding + rectSizeY + padding * 2, 0, alphabets);
-
-  //automatically setup rotors
-  //y position is padding + gap * i
-  for (int i=1; i<numRotors; i++) {
-    rotors[i] = new Rotor(rotors[0].x, rotors[0].y + gap * i, speeds[i], wirings[i], 13);
-  }
 }
 
 
@@ -125,8 +113,7 @@ void draw() {
   //setup tutorial page
   if (tutorial_page_setup) { 
     //tutorial setup
-    screen_update = true;
-    key_delay = 1000;
+    setup_tutorial_page();
 
     //render tutorial page
     tutorial_page = true;

@@ -1,11 +1,28 @@
-void render_tutorial_page(){
+void setup_tutorial_page() {
+  numRotors=4;
+  rotors = new Rotor[numRotors];
+
+  //setting up input rotor
+  rotors[0] = new Rotor(padding, padding + rectSizeY + padding * 2, 0, alphabets);
+
+  //automatically setup rotors
+  //y position is padding + gap * i
+  for (int i=1; i<numRotors; i++) {
+    rotors[i] = new Rotor(rotors[0].x, rotors[0].y + gap * i, speeds[i], wirings[i], 13);
+  }
+
+  screen_update = true;
+  key_delay = 1000;
+}
+
+void render_tutorial_page() {
   draw_menu_button();
   //only update boxes when needed (after input)
   if (screen_update) {
     //clearing screen
     background(200);
 
-    if(process){
+    if (process) {
       //draw rotors
       for (Rotor x : rotors) {
         if (x != null) x.rotor_draw();
@@ -14,7 +31,7 @@ void render_tutorial_page(){
       //draw output box
       fill (255);
       draw_boxes(width/2-box_size/2, rotors[rotors.length - 1].y + box_size + gap, box_size, 1);
-    } else{
+    } else {
       //draw input rotor only
       rotors[0].rotor_draw();
       //input and output text boxes
@@ -25,7 +42,7 @@ void render_tutorial_page(){
 
   //only accept another input after the first one is finished
   if (!key_pressed && keyPressed && ((key >= 65 && key < 65 + 26) || (key >= 97 && key < 97 + 26))) {
-    
+
     //capitalizing inputs
     int index = Character.toString(key).toUpperCase().charAt(0) - 65;
     String input = Character.toString(key);
@@ -33,16 +50,16 @@ void render_tutorial_page(){
 
     for (Rotor r : rotors) {
       //encode or decode
-      if(mode){
+      if (mode) {
         output = r.encode(output, index) + "";
-      } else{
+      } else {
         output = r.decode(output, index) + "";
       }
       //show process or not
-      if(process){
-        r.rotor_highlight(index, new int[]{0,0,0});
+      if (process) {
+        r.rotor_highlight(index, new int[]{0, 0, 0});
       } else {
-        rotors[0].rotor_highlight(index, new int[]{0,0,0});
+        rotors[0].rotor_highlight(index, new int[]{0, 0, 0});
       }
 
       println("+++++");
@@ -51,7 +68,7 @@ void render_tutorial_page(){
       println(r == rotors[rotors.length - 1]);
 
       //only draw arrows if needed
-      if(process){
+      if (process) {
         if (r == rotors[rotors.length - 1]) {
           //drawing arrow to print box
           int startingX = r.x + box_size * index + box_size / 2;
@@ -84,7 +101,7 @@ void render_tutorial_page(){
     }
 
     //draw output letter in the output box
-    if(process){
+    if (process) {
       fill(255, 0, 0);
       draw_letters(width/2-box_size/2, rotors[rotors.length - 1].y + box_size + gap, box_size, new String[]{output});
     }
@@ -105,5 +122,4 @@ void render_tutorial_page(){
       screen_update = true;
     }
   }
-
 }

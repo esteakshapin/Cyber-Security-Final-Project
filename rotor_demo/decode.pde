@@ -6,6 +6,18 @@ void setup_decode_page(){
   key_delay = 200;
   textAlign(CENTER, CENTER);
   //process = false;
+  
+  numRotors=4;
+  rotors = new Rotor[numRotors];
+
+  //setting up input rotor
+  rotors[0] = new Rotor(padding, padding + rectSizeY + padding * 2, 0, alphabets);
+
+  //automatically setup rotors
+  //y position is padding + gap * i
+  for (int i=1; i<numRotors; i++) {
+    rotors[i] = new Rotor(rotors[0].x, rotors[0].y + gap * i, speeds[i], wirings[i], 13);
+  }
 }
 
 
