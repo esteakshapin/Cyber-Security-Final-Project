@@ -1,7 +1,9 @@
 ArrayList<String> encodedText;
+ArrayList<String> plainText;
 
 void setup_encode_page() {
   encodedText = new ArrayList<String>();
+  plainText = new ArrayList<String>();
   screen_update=true;
   key_delay = 300;
   textAlign(CENTER, CENTER);
@@ -25,7 +27,7 @@ void render_encode_page() {
       //for(int i = 1; i < numRotors; i++){
       //  Rotor temp = new Rotor(rotors[i].x, rotors[i].y + box_size, speeds[i], wirings_reverse[1]);
       //  temp.rotor_draw();
-        
+
       //}
 
       //draw output box
@@ -40,9 +42,15 @@ void render_encode_page() {
     String[] temp_encoded = new String[encodedText.size()];
     encodedText.toArray(temp_encoded);
 
+    String[] temp_plain = new String[plainText.size()];
+    plainText.toArray(temp_plain);
+
     //draw encoded text under the output box
     fill(200, 0, 0);
     draw_letters(gap, rotors[rotors.length - 1].y + box_size + gap + box_size + box_size, 17, temp_encoded);
+    //draw plain text under the output box
+    fill(0, 0, 200);
+    draw_letters(gap, rotors[rotors.length - 1].y + box_size + gap + box_size, 17, temp_plain);
 
     screen_update = false;
   }
@@ -120,6 +128,7 @@ void render_encode_page() {
 
     //add letter to encoded text
     encodedText.add(output);
+    plainText.add(input.toUpperCase());
 
     key_pressed = true;
     start_time = millis();
