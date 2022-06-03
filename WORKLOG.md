@@ -83,6 +83,21 @@
 ### ***Shapin***
 
 
+## 6/01
+### ***Bryan***
+1. Try to figure out what's wrong with the encryption and decryption
+
+### ***Shapin***
+
+
+## 6/02
+### ***Bryan***
+1. Add input history on screens
+
+
+### ***Shapin***
+
+
 # References and Resources Used
 https://cryptocellar.org/simula/
 https://www.ciphermachinesandcryptology.com/
