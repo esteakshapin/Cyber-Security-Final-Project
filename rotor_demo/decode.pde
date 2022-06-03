@@ -1,7 +1,9 @@
 ArrayList<String> decodedText;
+ArrayList<String> cipherText;
 
 void setup_decode_page(){
   decodedText = new ArrayList<String>();
+  cipherText = new ArrayList<String>();
   screen_update=true;
   key_delay = 300;
   textAlign(CENTER, CENTER);
@@ -43,9 +45,15 @@ void render_decode_page() {
     String[] temp_decoded = new String[decodedText.size()];
     decodedText.toArray(temp_decoded);
 
+    String[] temp_cipher = new String[cipherText.size()];
+    cipherText.toArray(temp_cipher);
+
     //draw decoded text under the output box
     fill(200, 0, 0);
     draw_letters(gap, rotors[rotors.length - 1].y + box_size + gap + box_size + box_size, 17, temp_decoded);
+    //draw cipher text under the output boxes
+    fill(0, 0, 200);
+    draw_letters(gap, rotors[rotors.length - 1].y + box_size + gap + box_size, 17, temp_cipher);
 
     screen_update = false;
   }
@@ -57,7 +65,7 @@ void render_decode_page() {
     int index = Character.toString(key).toUpperCase().charAt(0) - 65;
     String input = Character.toString(key);
     String output = input;
-    
+
     for (Rotor r : rotors) {
       //show process or not
       if (process) {
@@ -113,7 +121,7 @@ void render_decode_page() {
         }
       }
     }
-    
+
 
     //draw output letter in the output box
     if (process) {
@@ -123,6 +131,7 @@ void render_decode_page() {
 
     //add letter to decoded text
     decodedText.add(output);
+    cipherText.add(input.toUpperCase());
 
     key_pressed = true;
     start_time = millis();
