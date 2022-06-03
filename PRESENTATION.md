@@ -11,24 +11,29 @@ This allows the user to create a complex polyalphabetic substitution cipher, whi
 ## How Our Demo Works
 We show how the rotors turn and the states that they are in. We use numbers to represent the substitution shifts that are applied to each letter every step of the way, which makes it easier to see how each rotor transforms the letters.
 
-We present a number of example wirings, with different substitutions (shifts), turn speeds, and number of rotors.
+We present an example wiring of the rotors with different turn speeds. We allow for encryption and decryption, and also show the intermediary forms of the letters as they are transformed. 
 
+![](https://i.stack.imgur.com/Vo9IP.png)
 
 ## Early Rotor Machines
 ### Theo van Hengel and Rudolf Spengler (1915)
 * Made a prototype
-* Rejected by Dutch navy
+* Rejected by Dutch navy and could not be patented
 
 ### Hebern Rotor Machine (1917)
 ![](https://computerhistory.org/wp-content/uploads/2019/08/hebern-rotor-machine-Hebern-copy.jpg)
 * Made by Edward Hebern
+* Originally 1 rotor
+* Rotor would repeat after 26 letters
 * Eventually had up to 5 rotors
+* The next rotor would only turn after 26 characters, so could be cryptoanalysed and cracked
 * Rotor had to be taken out and reversed to decipher
 
 ### Enigma Machine (1918)
 ![](https://th-thumbnailer.cdn-si-edu.com/i-UnSMSAeNPiw8sBjPAphUYSFr0=/1072x720/filters:no_upscale()/https://tf-cmsv2-smithsonianmag-media.s3.amazonaws.com/filer/f5/95/f59548db-c8c7-47a0-8404-9e44cd4b8db6/enigma.jpg)
 * Made by Arthur Scherbius
 * Eventually added a plugboard
+* Marketted to German Navy and Army
 * Reflector for easier decryption, also made cipher vulnerable
 
 ### Hugo Cipher Patent (1919)
