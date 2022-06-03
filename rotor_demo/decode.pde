@@ -59,7 +59,6 @@ void render_decode_page() {
     String output = input;
     
     for (Rotor r : rotors) {
-
       //show process or not
       if (process) {
         r.rotor_highlight(index, new int[]{0, 0, 0});
@@ -114,6 +113,7 @@ void render_decode_page() {
         }
       }
     }
+    
 
     //draw output letter in the output box
     if (process) {
